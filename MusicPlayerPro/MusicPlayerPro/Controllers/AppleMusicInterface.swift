@@ -15,14 +15,12 @@ class AppleMusicInterface: NSObject {
     var cloudServiceCapabilities = SKCloudServiceCapability()
     var userToken = ""
     var cloudServiceCountryCode = ""
-    let appleMusicInterface: AppleMusicInterface
     let cloudServiceController = SKCloudServiceController()
     
     static let userTokenUserDefaultsKey = "UserToken"
     
     
-    init(appleMusicInterface: AppleMusicInterface) {
-        self.appleMusicInterface = appleMusicInterface
+    override init() {
         super.init()
         
         if SKCloudServiceController.authorizationStatus() == .authorized {
@@ -69,7 +67,7 @@ class AppleMusicInterface: NSObject {
     }
     
     func requestUserToken() -> Void {
-        guard let developerToken = appleMusicInterface.FetchDeveloperToken() else {
+        guard let developerToken = self.FetchDeveloperToken() else {
             return
         }
         

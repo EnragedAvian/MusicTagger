@@ -11,8 +11,14 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // MARK: Properties
 
-
+    lazy var appleMusicInterface: AppleMusicInterface = {
+        return AppleMusicInterface()
+    }()
+    
+    lazy var musicPlayerController: MusicPlayerController = MusicPlayerController()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         

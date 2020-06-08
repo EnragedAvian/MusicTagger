@@ -17,6 +17,26 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
+        
+        //let myCollection = MPMediaItemCollection()
+        
+        let songFilter = MPMediaPropertyPredicate(value: "4370690314555102979", forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
+        
+        let filterSet = Set([songFilter])
+        
+        let query = MPMediaQuery(filterPredicates: filterSet)
+        
+        
+        
+        controller.musicPlayer.setQueue(with: query)
+        
+        controller.musicPlayer.play()
+        
+        print(controller.musicPlayer.nowPlayingItem?.persistentID)
+        
+        //controller.musicPlayer.play()
+        
         /*checkPerms()
         
         //SKCloudServiceController.requestUserToken(SKCloudServiceController)
