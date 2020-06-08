@@ -17,16 +17,19 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkPerms()
+        /*checkPerms()
         
+        //SKCloudServiceController.requestUserToken(SKCloudServiceController)
         
         print(SKCloudServiceController.authorizationStatus().rawValue)
         
         let musicPlayer = MPMusicPlayerController.applicationQueuePlayer
         
+        //musicPlayer.prepareToPlay()
+        
         musicPlayer.setQueue(with: .songs())
         
-        musicPlayer.play()
+        //musicPlayer.play()
         
         switch myStatus {
         case .denied:
@@ -38,14 +41,14 @@ class LaunchViewController: UIViewController {
         default:
             print ("error")
             break
-        }
+        }*/
         
         // Do any additional setup after loading the view.
     }
     
     
     // Function that prompts the user to grant permission to access their music library on first load.
-    func checkPerms() -> Void {
+    /*func checkPerms() -> Void {
         guard SKCloudServiceController.authorizationStatus() == .notDetermined else { return }
         
         print (SKCloudServiceController.authorizationStatus().rawValue)
@@ -60,7 +63,7 @@ class LaunchViewController: UIViewController {
                 break
             }
         }
-    }
+    }*/
     
     /*func requestPerms() {
         SKCloudServiceController.requestAuthorization(<#T##handler: (SKCloudServiceAuthorizationStatus) -> Void##(SKCloudServiceAuthorizationStatus) -> Void#>)
