@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D1285DB6248E052B000A0A75 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1285DB5248E052B000A0A75 /* LaunchViewController.swift */; };
 		D180BD1B248D96DF00BE1423 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D180BD1A248D96DF00BE1423 /* AppDelegate.swift */; };
 		D180BD1D248D96DF00BE1423 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D180BD1C248D96DF00BE1423 /* SceneDelegate.swift */; };
 		D180BD1F248D96DF00BE1423 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D180BD1E248D96DF00BE1423 /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D1285DB5248E052B000A0A75 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		D180BD17248D96DF00BE1423 /* MusicPlayerPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayerPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D180BD1A248D96DF00BE1423 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D180BD1C248D96DF00BE1423 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				D180BD1C248D96DF00BE1423 /* SceneDelegate.swift */,
 				D180BD1E248D96DF00BE1423 /* ViewController.swift */,
 				D180BD20248D96DF00BE1423 /* Main.storyboard */,
+				D1285DB5248E052B000A0A75 /* LaunchViewController.swift */,
 				D180BD23248D96DF00BE1423 /* Assets.xcassets */,
 				D180BD25248D96DF00BE1423 /* LaunchScreen.storyboard */,
 				D180BD28248D96DF00BE1423 /* Info.plist */,
@@ -262,6 +265,7 @@
 				D180BD1F248D96DF00BE1423 /* ViewController.swift in Sources */,
 				D180BD1B248D96DF00BE1423 /* AppDelegate.swift in Sources */,
 				D180BD1D248D96DF00BE1423 /* SceneDelegate.swift in Sources */,
+				D1285DB6248E052B000A0A75 /* LaunchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
