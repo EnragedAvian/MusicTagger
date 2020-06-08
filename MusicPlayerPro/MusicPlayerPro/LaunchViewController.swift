@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import MediaPlayer
 
 class LaunchViewController: UIViewController {
 
@@ -16,10 +17,16 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        determinePerms()
+        checkPerms()
         
         
-        print(myStatus.rawValue)
+        print(SKCloudServiceController.authorizationStatus().rawValue)
+        
+        let musicPlayer = MPMusicPlayerController.applicationQueuePlayer
+        
+        musicPlayer.setQueue(with: .songs())
+        
+        musicPlayer.play()
         
         switch myStatus {
         case .denied:
@@ -36,7 +43,9 @@ class LaunchViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func determinePerms() -> Void {
+    
+    // Function that prompts the user to grant permission to access their music library on first load.
+    func checkPerms() -> Void {
         guard SKCloudServiceController.authorizationStatus() == .notDetermined else { return }
         
         print (SKCloudServiceController.authorizationStatus().rawValue)
@@ -53,6 +62,9 @@ class LaunchViewController: UIViewController {
         }
     }
     
+    /*func requestPerms() {
+        SKCloudServiceController.requestAuthorization(<#T##handler: (SKCloudServiceAuthorizationStatus) -> Void##(SKCloudServiceAuthorizationStatus) -> Void#>)
+    }*/
     
     /*
     // MARK: - Navigation
