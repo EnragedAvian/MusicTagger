@@ -18,6 +18,11 @@ class AppleMusicInterface: NSObject {
     let cloudServiceController = SKCloudServiceController()
     
     static let userTokenUserDefaultsKey = "UserToken"
+    static let allTagsDefaultsKey = "allTags"
+    
+    static let allSongTagsDefaultsKey = "allSongTags"
+    static let allAlbumTagsDefaultsKey = "allAlbumTags"
+    static let allPlaylistTagsDefaultsKey = "allPlaylistTags"
     
     
     override init() {

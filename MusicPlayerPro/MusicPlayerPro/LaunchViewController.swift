@@ -34,7 +34,6 @@ class LaunchViewController: UIViewController {
         controller.musicPlayer.play()
         
         print(controller.musicPlayer.nowPlayingItem?.persistentID)
-        
         //controller.musicPlayer.play()
         
         /*checkPerms()
