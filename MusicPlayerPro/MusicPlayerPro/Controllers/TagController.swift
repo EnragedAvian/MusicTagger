@@ -248,13 +248,97 @@ class TagController {
         let query = MPMediaQuery(filterPredicates: filterSet)
         
         if query.items != nil && ValidateTag(tagName: tagName) {
+            var newMediaTags: [String]?
+            switch (tagType) {
+            case .song:
+                newMediaTags = allSongs[mediaID]
+            case .album:
+                newMediaTags = allAlbums[mediaID]
+            case .playlist:
+                newMediaTags = allSongs[mediaID]
+            }
             
+            if newMediaTags == nil {
+                newMediaTags = [String]()
+            }
+            
+            guard var unwrappedNewMediaTags: [String] = newMediaTags else {
+                print ("Error unwrapping variable")
+                return false
+            }
+            
+            var hasTag = false
+            for item in unwrappedNewMediaTags {
+                if item == tagName {
+                    hasTag = true
+                }
+            }
+            
+            if (!hasTag) {
+                unwrappedNewMediaTags.append(tagName)
+            }
+            
+            switch (tagType) {
+            case .song:
+                allSongs[mediaID] = unwrappedNewMediaTags
+                defaults.set(allSongs, forKey: AppleMusicInterface.allSongsDefaultsKey)
+            case .album:
+                allAlbums[mediaID] = unwrappedNewMediaTags
+                defaults.set(allAlbums, forKey: AppleMusicInterface.allAlbumsDefaultsKey)
+            case .playlist:
+                allPlaylists[mediaID] = unwrappedNewMediaTags
+                defaults.set(allAlbums, forKey: AppleMusicInterface.allPlaylistsDefaultsKey)
+            }
+            
+            var newMediaTagDict: [String]?
+            switch (tagType) {
+            case .song:
+                newMediaTagDict = songTagDict[tagName]
+            case .album:
+                newMediaTagDict = albumTagDict[tagName]
+            case .playlist:
+                newMediaTagDict = playlistTagDict[tagName]
+            }
+            
+            if newMediaTagDict == nil {
+                newMediaTagDict = [String]()
+            }
+            
+            guard var unwrappedNewMediaTagDict: [String] = newMediaTagDict else {
+                print ("Error unwrapping variable")
+                return false
+            }
+            
+            var hasMedia = false
+            for item in unwrappedNewMediaTagDict {
+                if item == mediaID {
+                    hasMedia = true
+                }
+            }
+            
+            if (!hasMedia) {
+                unwrappedNewMediaTagDict.append(mediaID)
+            }
+            
+            switch (tagType) {
+            case .song:
+                songTagDict[tagName] = unwrappedNewMediaTagDict
+                defaults.set(songTagDict, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
+            case .album:
+                albumTagDict[tagName] = unwrappedNewMediaTagDict
+                defaults.set(songTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
+            case .playlist:
+                playlistTagDict[tagName] = unwrappedNewMediaTagDict
+                defaults.set(songTagDict, forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey)
+            }
+            
+            return true
         }
         
-        
+        return false
     }
     
-    func tagSong(songID: String, tagName: String) -> Bool {
+    /*func tagSong(songID: String, tagName: String) -> Bool {
         let songFilter = MPMediaPropertyPredicate(value: songID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
         
         let filterSet = Set([songFilter])
@@ -406,9 +490,109 @@ class TagController {
         
         
         return false;
+    }*/
+    
+    func removeTagMedia(mediaID: String, tagName: String, tagType: mediaType) -> Bool {
+        var mediaFilter: MPMediaPropertyPredicate
+        switch(tagType) {
+        case .song:
+            mediaFilter = MPMediaPropertyPredicate(value: mediaID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
+        case .album:
+            mediaFilter = MPMediaPropertyPredicate(value: mediaID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: .equalTo)
+        case .playlist:
+            mediaFilter = MPMediaPropertyPredicate(value: mediaID, forProperty: MPMediaPlaylistPropertyPersistentID, comparisonType: .equalTo)
+        }
+        
+        let filterSet = Set([mediaFilter])
+        
+        let query = MPMediaQuery(filterPredicates: filterSet)
+        
+        if query.items != nil && ValidateTag(tagName: tagName) {
+            var newMediaTags: [String]?
+            switch (tagType) {
+            case .song:
+                newMediaTags = allSongs[mediaID]
+            case .album:
+                newMediaTags = allAlbums[mediaID]
+            case .playlist:
+                newMediaTags = allPlaylists[mediaID]
+            }
+            
+            if newMediaTags == nil {
+                newMediaTags = [String]()
+            }
+            
+            guard var unwrappedNewMediaTags: [String] = newMediaTags else {
+                print("Error unwrapping variable")
+                return false
+            }
+            
+            for i in 0..<unwrappedNewMediaTags.count {
+                if unwrappedNewMediaTags[i] == tagName {
+                    unwrappedNewMediaTags.remove(at: i)
+                    break
+                }
+            }
+            
+            switch (tagType) {
+            case .song:
+                allSongs[mediaID] = unwrappedNewMediaTags
+                defaults.set(allSongs, forKey: AppleMusicInterface.allSongsDefaultsKey)
+            case .album:
+                allAlbums[mediaID] = unwrappedNewMediaTags
+                defaults.set(allAlbums, forKey: AppleMusicInterface.allAlbumsDefaultsKey)
+            case .playlist:
+                allPlaylists[mediaID] = unwrappedNewMediaTags
+                defaults.set(allPlaylists, forKey: AppleMusicInterface.allPlaylistsDefaultsKey)
+            }
+            
+            var newMediaTagDict: [String]?
+            
+            switch(tagType) {
+            case .song:
+                newMediaTagDict = songTagDict[tagName]
+            case .album:
+                newMediaTagDict = albumTagDict[tagName]
+            case.playlist:
+                newMediaTagDict = playlistTagDict[tagName]
+            }
+            
+            if newMediaTagDict == nil {
+                newMediaTagDict = [String]()
+            }
+            
+            guard var unwrappedNewMediaTagDict: [String] = newMediaTagDict else {
+                print ("Error unwrapping variable")
+                return false
+            }
+            
+            for i in 0..<unwrappedNewMediaTagDict.count {
+                if unwrappedNewMediaTagDict[i] == mediaID {
+                    unwrappedNewMediaTagDict.remove(at: i)
+                    break
+                }
+            }
+            
+            switch (tagType) {
+            case .song:
+                songTagDict[tagName] = unwrappedNewMediaTagDict
+                defaults.set(songTagDict, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
+            case .album:
+                albumTagDict[tagName] = unwrappedNewMediaTagDict
+                defaults.set(albumTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
+            case .playlist:
+                playlistTagDict[tagName] = unwrappedNewMediaTagDict
+                defaults.set(playlistTagDict, forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey)
+            }
+            
+            return true
+            
+        }
+        
+        return false
     }
     
-    func removeTagSong(songID: String, tagName: String) -> Bool {
+    /*func removeTagSong(songID: String, tagName: String) -> Bool {
         let songFilter = MPMediaPropertyPredicate(value: songID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
         
         let filterSet = Set([songFilter])
@@ -516,7 +700,17 @@ class TagController {
         }
         
         return false;
-    }
+    }*/
+    
+    /*func deleteTag(tagName: String) -> Bool {
+        if ValidateTag(tagName: tagName) {
+            if songTagDict[tagName] == nil {
+                songTagDict[tagName] = [String]()
+            }
+            
+            var unwrapped
+        }
+    }*/
     
     /*func removeTag(tagName: String) -> Bool {
         if ValidateTag(tagName: tagName) {
