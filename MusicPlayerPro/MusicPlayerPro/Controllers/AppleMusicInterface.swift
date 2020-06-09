@@ -24,6 +24,10 @@ class AppleMusicInterface: NSObject {
     static let allAlbumTagsDefaultsKey = "allAlbumTags"
     static let allPlaylistTagsDefaultsKey = "allPlaylistTags"
     
+    static let allSongsDefaultsKey = "allSongs"
+    static let allAlbumsDefaultsKey = "allAlbums"
+    static let allPlaylistsDefaultsKey = "allPlaylists"
+    
     
     override init() {
         super.init()
