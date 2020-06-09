@@ -49,16 +49,25 @@ class SampleTableViewController: UIViewController, UITableViewDataSource {
         if let myCell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell") as? SampleCell { // attempt to import prototype cell from storyboard
             // Retrieve values for rank, name, and score from the arrays
             
-            print("success")
+            //print("success")
             
             let artist = allSongs[indexPath.row].artist
             let name = allSongs[indexPath.row].title
             let songID = allSongs[indexPath.row].persistentID
             
+            
+            let albumCover = allSongs[indexPath.row].artwork
+            
+            myCell.cellMediaType = .song
             myCell.songName.text = name
             myCell.artistName.text = artist
             myCell.mediaID = songID
-            myCell.cellMediaType = .song
+            
+            guard let unwrappedAlbumCover = albumCover?.image(at: CGSize(width: 120, height: 120)) else {
+                return myCell
+            }
+            
+            myCell.albumCover.image = unwrappedAlbumCover
 
             // return this cell
             return myCell

@@ -6,6 +6,8 @@
 //  Copyright © 2020 Cameron Bossalini. All rights reserved.
 //
 
+//  Code referenced from apple's "Adding Content to Apple Music" sample app
+
 import Foundation
 import StoreKit
 import MediaPlayer
@@ -19,6 +21,7 @@ class AppleMusicInterface: NSObject {
     
     static let userTokenUserDefaultsKey = "UserToken"
     static let allTagsDefaultsKey = "allTags"
+    static let developerTokenDefaultsKey = "devToken"
     
     static let allSongTagsDefaultsKey = "allSongTags"
     static let allAlbumTagsDefaultsKey = "allAlbumTags"
@@ -41,6 +44,8 @@ class AppleMusicInterface: NSObject {
         } else {
             requestUserToken()
         }
+        UserDefaults.standard.set(self.FetchDeveloperToken(), forKey: AppleMusicInterface.developerTokenDefaultsKey)
+        
     }
     
     func FetchDeveloperToken() -> String? {
@@ -72,7 +77,13 @@ class AppleMusicInterface: NSObject {
     }
     
     func requestCloudCapabilities() -> Void {
-        
+        cloudServiceController.requestCapabilities(completionHandler: { [weak self] (cloudServiceCapability, error) in
+            guard error == nil else {
+                fatalError("An error occurred while requesting cloud capabilities: " + error!.localizedDescription)
+            }
+            self?.cloudServiceCapabilities = cloudServiceCapability
+            
+        })
     }
     
     func requestUserToken() -> Void {
