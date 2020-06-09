@@ -17,7 +17,11 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
+        
+        
+        
+        
+        /*let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         
         //let myCollection = MPMediaItemCollection()
         
@@ -33,7 +37,7 @@ class LaunchViewController: UIViewController {
         
         controller.musicPlayer.play()
         
-        print(controller.musicPlayer.nowPlayingItem?.persistentID)
+        print(controller.musicPlayer.nowPlayingItem?.persistentID)*/
         //controller.musicPlayer.play()
         
         /*checkPerms()

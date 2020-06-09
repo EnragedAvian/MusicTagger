@@ -20,6 +20,8 @@
 		D180BD27248D96DF00BE1423 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D180BD25248D96DF00BE1423 /* LaunchScreen.storyboard */; };
 		D180BD32248D96E000BE1423 /* MusicPlayerProTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D180BD31248D96E000BE1423 /* MusicPlayerProTests.swift */; };
 		D180BD3D248D96E000BE1423 /* MusicPlayerProUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D180BD3C248D96E000BE1423 /* MusicPlayerProUITests.swift */; };
+		D1FF5D03248FF1C6003BD7D4 /* SampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D02248FF1C6003BD7D4 /* SampleCell.swift */; };
+		D1FF5D05248FF91D003BD7D4 /* SampleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D04248FF91D003BD7D4 /* SampleTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		D180BD38248D96E000BE1423 /* MusicPlayerProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicPlayerProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D180BD3C248D96E000BE1423 /* MusicPlayerProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerProUITests.swift; sourceTree = "<group>"; };
 		D180BD3E248D96E000BE1423 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1FF5D02248FF1C6003BD7D4 /* SampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCell.swift; sourceTree = "<group>"; };
+		D1FF5D04248FF91D003BD7D4 /* SampleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,9 +135,11 @@
 				D1285DB8248EBE91000A0A75 /* Controllers */,
 				D1285DB7248EBE83000A0A75 /* Views */,
 				D180BD1C248D96DF00BE1423 /* SceneDelegate.swift */,
+				D1FF5D02248FF1C6003BD7D4 /* SampleCell.swift */,
 				D180BD1E248D96DF00BE1423 /* ViewController.swift */,
 				D180BD20248D96DF00BE1423 /* Main.storyboard */,
 				D1285DB5248E052B000A0A75 /* LaunchViewController.swift */,
+				D1FF5D04248FF91D003BD7D4 /* SampleTableViewController.swift */,
 				D180BD23248D96DF00BE1423 /* Assets.xcassets */,
 				D180BD25248D96DF00BE1423 /* LaunchScreen.storyboard */,
 				D180BD28248D96DF00BE1423 /* Info.plist */,
@@ -292,8 +298,10 @@
 			files = (
 				D1285DBE248ED59A000A0A75 /* APIController.swift in Sources */,
 				D180BD1F248D96DF00BE1423 /* ViewController.swift in Sources */,
+				D1FF5D03248FF1C6003BD7D4 /* SampleCell.swift in Sources */,
 				D180BD1B248D96DF00BE1423 /* AppDelegate.swift in Sources */,
 				D1285DBC248ECCA2000A0A75 /* MusicPlayerController.swift in Sources */,
+				D1FF5D05248FF91D003BD7D4 /* SampleTableViewController.swift in Sources */,
 				D1285DBA248EBEC8000A0A75 /* AppleMusicInterface.swift in Sources */,
 				D180BD1D248D96DF00BE1423 /* SceneDelegate.swift in Sources */,
 				D1285DC0248EDECD000A0A75 /* TagController.swift in Sources */,

@@ -196,6 +196,26 @@ class TagController {
         return []
     }
     
+    func returnMediaTags(mediaID: String, myMediaType: mediaType) -> [String] {
+        switch (myMediaType) {
+        case .song:
+            guard let unwrappedTags: [String] = allSongs[mediaID] else {
+                return []
+            }
+            return unwrappedTags
+        case .album:
+            guard let unwrappedTags: [String] = allAlbums[mediaID] else {
+                return []
+            }
+            return unwrappedTags
+        case .playlist:
+            guard let unwrappedTags: [String] = allPlaylists[mediaID] else {
+                return []
+            }
+            return unwrappedTags
+        }
+    }
+    
     func createTag(tagName: String) -> Bool {
         if !ValidateTag(tagName: tagName) {
             allTags.append(tagName)

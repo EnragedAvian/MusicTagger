@@ -15,6 +15,8 @@ class MusicPlayerController: NSObject {
     
     // TODO: Add more features to music player
     
+    
+    
     func Play() -> Void {
         musicPlayer.play()
     }
@@ -22,6 +24,20 @@ class MusicPlayerController: NSObject {
     func Pause() -> Void {
         musicPlayer.pause()
     }
+    
+    func Append(item: MPMusicPlayerQueueDescriptor) {
+        musicPlayer.append(item)
+    }
+    
+    func Prepend(item: MPMusicPlayerQueueDescriptor) {
+        musicPlayer.prepend(item)
+    }
+    
+    func SetQueueQuery(query: MPMediaQuery) {
+        musicPlayer.setQueue(with: query)
+    }
+    
+    
     
     
 }
