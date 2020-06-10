@@ -37,7 +37,24 @@ class MusicPlayerController: NSObject {
         musicPlayer.setQueue(with: query)
     }
     
+    func currentlyPlaying() -> MPMediaItem? {
+        return musicPlayer.nowPlayingItem
+    }
     
+    func skipForward() -> Void {
+        musicPlayer.skipToNextItem()
+    }
     
+    func skipBackward() -> Void {
+        if musicPlayer.currentPlaybackTime > 6 {
+            musicPlayer.skipToBeginning()
+        } else {
+            musicPlayer.skipToPreviousItem()
+        }
+    }
+    
+    func isPlaying() -> Bool {
+        return musicPlayer.playbackState == MPMusicPlaybackState.playing
+    }
     
 }

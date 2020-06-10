@@ -1,5 +1,5 @@
 //
-//  DetailViewCell.swift
+//  PlaylistTagSelectorCell.swift
 //  MusicPlayerPro
 //
 //  Created by Cameron Bossalini on 6/10/20.
@@ -7,13 +7,9 @@
 //
 
 import UIKit
-import MediaPlayer
 
-class DetailViewCell: UITableViewCell {
+class PlaylistTagSelectorCell: UITableViewCell {
 
-    @IBOutlet weak var contentName: UILabel!
-    var contentID = MPMediaEntityPersistentID()
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,8 +21,4 @@ class DetailViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    @IBAction func pressShowTags(_ sender: Any) {
-        UserDefaults.standard.set(contentID, forKey: "tagViewID")
-        UserDefaults.standard.set("song", forKey: "tagViewType")
-    }
 }
