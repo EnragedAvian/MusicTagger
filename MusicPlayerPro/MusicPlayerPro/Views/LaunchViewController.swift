@@ -17,6 +17,9 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let controller = (UIApplication.shared.delegate as! AppDelegate).tagController
+        
+        print(controller.createTag(tagName: "anotherTag"))
     
         
         

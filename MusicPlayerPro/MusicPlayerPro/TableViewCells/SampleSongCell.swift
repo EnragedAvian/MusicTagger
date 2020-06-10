@@ -18,7 +18,8 @@ class SampleSongCell: UITableViewCell {
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var albumCover: UIImageView!
-
+    @IBOutlet weak var moreInfoButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -43,4 +44,22 @@ class SampleSongCell: UITableViewCell {
         controller.Play()
     }
     
+    @IBAction func pressMoreInfo(_ sender: Any) {
+        let songFilter = MPMediaPropertyPredicate(value: mediaID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
+        
+        let filterSet = Set([songFilter])
+        
+        let query = MPMediaQuery(filterPredicates: filterSet)
+        
+        guard let unwrappedQueryItems: [MPMediaItem] = query.items else {
+            print("Couldn't unwrap query")
+            return
+        }
+        
+        if unwrappedQueryItems.count > 0 {
+            UserDefaults.standard.set(unwrappedQueryItems[0].albumPersistentID, forKey: "collectionID")
+        }
+        
+        UserDefaults.standard.set("album", forKey: "detailType")
+    }
 }

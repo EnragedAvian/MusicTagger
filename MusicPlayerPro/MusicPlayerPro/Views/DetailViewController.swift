@@ -10,7 +10,7 @@ import UIKit
 import MediaPlayer
 
 class DetailViewController: UIViewController, UITableViewDataSource {
-    var masterCollection = MPMediaItemCollection()
+    var masterCollection = MPMediaItemCollection.init(items: [])
     var masterCollectionID = MPMediaEntityPersistentID()
     
     @IBOutlet weak var mediaTitle: UILabel!
@@ -29,19 +29,31 @@ class DetailViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        
+        return UITableViewCell()
     }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let preLoadType = UserDefaults.standard.object(forKey: "detailType")
+        let preLoadType = UserDefaults.standard.string(forKey: "detailType")
         let preLoadID = UserDefaults.standard.object(forKey: "collectionID")
     
-        guard let collectionType = preLoadType as? mediaType else {
+        guard let collectionTypeString: String = preLoadType else {
             print("Can't determine type of album/playlist")
             return
+        }
+        
+        var collectionType = mediaType.song
+        
+        switch (collectionTypeString) {
+        case "album":
+            collectionType = mediaType.album
+        case "playlist":
+            collectionType = mediaType.playlist
+        default:
+            collectionType = mediaType.song
         }
         
         guard let unwrappedPreLoadID = preLoadID as? MPMediaEntityPersistentID else {

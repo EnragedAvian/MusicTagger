@@ -58,7 +58,6 @@
         <!--Root View Controller-->
         <scene sceneID="p76-nA-dsA">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cJ9-Nd-XQh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tableViewController id="PCM-s2-Xhi" customClass="SongTableViewController" customModule="MusicPlayerPro" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xJt-Wn-nVT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -150,6 +149,7 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </state>
                                             <connections>
+                                                <action selector="pressMoreInfo:" destination="RSo-O3-xNW" eventType="touchDown" id="ixP-gm-hvD"/>
                                                 <segue destination="wjZ-AZ-mNP" kind="presentation" id="3c4-Hp-aPM"/>
                                             </connections>
                                         </button>
@@ -172,6 +172,7 @@
                                 <connections>
                                     <outlet property="albumCover" destination="ZuV-ty-qjj" id="Phb-Ce-pPw"/>
                                     <outlet property="artistName" destination="AcZ-H0-5U8" id="Vps-da-KHJ"/>
+                                    <outlet property="moreInfoButton" destination="hho-1s-D75" id="ONI-h5-dkG"/>
                                     <outlet property="playButton" destination="eBy-zs-VOP" id="MXP-AB-317"/>
                                     <outlet property="songName" destination="04Y-dI-sZs" id="SmC-9Z-7TF"/>
                                 </connections>
@@ -331,6 +332,7 @@
                         <outlet property="myTableView" destination="xJt-Wn-nVT" id="zOF-ed-uaJ"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cJ9-Nd-XQh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3874.4000000000001" y="977.58620689655174"/>
         </scene>

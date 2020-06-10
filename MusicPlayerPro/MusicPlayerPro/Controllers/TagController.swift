@@ -235,7 +235,7 @@ class TagController {
                 playlistTagDict[tagName] = []
             }
             defaults.set(playlistTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
-            
+            return true
         }
         print ("Tag already exists")
         return false;
