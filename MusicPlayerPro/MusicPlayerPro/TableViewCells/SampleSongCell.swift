@@ -18,8 +18,7 @@ class SampleSongCell: UITableViewCell {
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var albumCover: UIImageView!
-    @IBOutlet weak var moreInfoButton: UIButton!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

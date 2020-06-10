@@ -102,7 +102,7 @@ class SongTableViewController: UITableViewController {
                 if albumCover != nil {
                     myCell.albumCover.image = albumCover?.image(at: CGSize(width: 150, height: 150))
                 } else {
-                    myCell.albumCover.image = UIImage(systemName: "square.stack.3d.up.slash")
+                    myCell.albumCover.image = UIImage(systemName: "music.note.list")
                     myCell.albumCover.image?.withTintColor(UIColor.lightText)
                 }
                 
@@ -127,7 +127,7 @@ class SongTableViewController: UITableViewController {
                 if albumCover != nil {
                     myCell.albumCover.image = albumCover?.image(at: CGSize(width: 150, height: 150))
                 } else {
-                    myCell.albumCover.image = UIImage(systemName: "square.stack.3d.up.slash")
+                    myCell.albumCover.image = UIImage(systemName: "music.note.list")
                     myCell.albumCover.image?.withTintColor(UIColor.lightText)
                 }
                 
@@ -160,7 +160,7 @@ class SongTableViewController: UITableViewController {
                 if playlistCover != nil {
                     myCell.playlistArt.image = playlistCover?.image(at: CGSize(width: 150, height: 150))
                 } else {
-                    myCell.playlistArt.image = UIImage(systemName: "square.stack.3d.up.slash")
+                    myCell.playlistArt.image = UIImage(systemName: "music.note.list")
                     myCell.playlistArt.image?.withTintColor(UIColor.lightText)
                 }
                 
