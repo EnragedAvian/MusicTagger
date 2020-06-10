@@ -118,6 +118,46 @@ class DetailViewController: UIViewController, UITableViewDataSource {
             
             return
         case .playlist:
+            print("MasterCollection ID: " + String(masterCollectionID))
+            let playlistFilter = MPMediaPropertyPredicate(value: masterCollectionID, forProperty: MPMediaPlaylistPropertyPersistentID, comparisonType: .equalTo)
+            
+            let filterSet = Set([playlistFilter])
+            
+            let query = MPMediaQuery(filterPredicates: filterSet)
+            
+            print(query.collections)
+            
+            guard let unwrappedQuery: [MPMediaItemCollection] = query.collections else {
+                print ("Couldn't unwrap query collection")
+                return
+            }
+            
+            print(unwrappedQuery)
+            
+            masterCollection = unwrappedQuery[0]
+            
+            var albumCover: MPMediaItemArtwork?
+            
+            if masterCollection.items.count > 0 {
+                guard let unwrappedTitle = masterCollection.value(forProperty:MPMediaPlaylistPropertyName) as? String else {
+                    print("could not read playlist name")
+                    return
+                }
+                
+                mediaTitle.text = unwrappedTitle
+                mediaArtist.text = ""
+                
+                albumCover = masterCollection.items[0].artwork
+            }
+            
+            if albumCover != nil {
+                mediaImage.image = albumCover?.image(at: CGSize(width:500, height:500))
+            } else {
+                mediaImage.image = UIImage(systemName: "music.note.list")?.withTintColor(UIColor.lightText)
+            }
+            
+            contentTable.dataSource = self
+            
             return
         }
         

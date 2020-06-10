@@ -44,6 +44,25 @@ class SampleAlbumCell: UITableViewCell {
         controller.Play()
     }
     
+    @IBAction func pressMoreInfo(_ sender: Any) {
+        let albumFilter = MPMediaPropertyPredicate(value: mediaID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: .equalTo)
+        
+        let filterSet = Set([albumFilter])
+        
+        let query = MPMediaQuery(filterPredicates: filterSet)
+        
+        guard let unwrappedQueryItems: [MPMediaItem] = query.items else {
+            print("Couldn't unwrap query")
+            return
+        }
+        
+        if unwrappedQueryItems.count > 0 {
+            UserDefaults.standard.set(unwrappedQueryItems[0].albumPersistentID, forKey: "collectionID")
+        }
+        
+        UserDefaults.standard.set("album", forKey: "detailType")
+        
+    }
     
     
 

@@ -39,9 +39,39 @@ class SamplePlaylistCell: UITableViewCell {
         
         let query = MPMediaQuery(filterPredicates: filterSet)
         
+        print(query.collections)
+        
         controller.SetQueueQuery(query: query)
         
         controller.Play()
     }
     
+    @IBAction func pressMoreInfo(_ sender: Any) {
+        let playlistFilter = MPMediaPropertyPredicate(value: mediaID, forProperty: MPMediaPlaylistPropertyPersistentID, comparisonType: .equalTo)
+        
+        print(mediaID)
+        
+        let filterSet = Set([playlistFilter])
+        
+        let query = MPMediaQuery(filterPredicates: filterSet)
+        
+        guard let unwrappedQueryItems: [MPMediaItemCollection] = query.collections else {
+            print("Couldn't unwrap query")
+            return
+        }
+        
+        if unwrappedQueryItems.count > 0 {
+            
+            guard let playlistID = unwrappedQueryItems[0].value(forProperty: MPMediaPlaylistPropertyPersistentID) as? MPMediaEntityPersistentID else {
+                print("could not read playlist ID")
+                return
+            }
+            print("Playlist ID: " + String(playlistID))
+            UserDefaults.standard.set(playlistID, forKey: "collectionID")
+            print(UserDefaults.standard.value(forKey: "collectionID"))
+        }
+        
+        UserDefaults.standard.set("playlist", forKey: "detailType")
+        
+    }
 }

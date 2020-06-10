@@ -21,6 +21,7 @@
 		D180BD3D248D96E000BE1423 /* MusicPlayerProUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D180BD3C248D96E000BE1423 /* MusicPlayerProUITests.swift */; };
 		D1C6480A24913FB80057361D /* TagSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C6480924913FB80057361D /* TagSelectorCell.swift */; };
 		D1C6480C24913FDB0057361D /* TagSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C6480B24913FDB0057361D /* TagSelectorTableViewController.swift */; };
+		D1C6480E2491809A0057361D /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C6480D2491809A0057361D /* PlayViewController.swift */; };
 		D1FF5D03248FF1C6003BD7D4 /* SampleSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D02248FF1C6003BD7D4 /* SampleSongCell.swift */; };
 		D1FF5D09249073B7003BD7D4 /* SongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D08249073B7003BD7D4 /* SongTableViewController.swift */; };
 		D1FF5D0C24908709003BD7D4 /* SampleAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D0B24908709003BD7D4 /* SampleAlbumCell.swift */; };
@@ -67,6 +68,7 @@
 		D180BD3E248D96E000BE1423 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1C6480924913FB80057361D /* TagSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectorCell.swift; sourceTree = "<group>"; };
 		D1C6480B24913FDB0057361D /* TagSelectorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectorTableViewController.swift; sourceTree = "<group>"; };
+		D1C6480D2491809A0057361D /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		D1FF5D02248FF1C6003BD7D4 /* SampleSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleSongCell.swift; sourceTree = "<group>"; };
 		D1FF5D08249073B7003BD7D4 /* SongTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewController.swift; sourceTree = "<group>"; };
 		D1FF5D0B24908709003BD7D4 /* SampleAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAlbumCell.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				D1285DB5248E052B000A0A75 /* LaunchViewController.swift */,
+				D1C6480D2491809A0057361D /* PlayViewController.swift */,
 				D1FF5D08249073B7003BD7D4 /* SongTableViewController.swift */,
 				D1FF5D0F2490B33E003BD7D4 /* DetailViewController.swift */,
 				D1C6480B24913FDB0057361D /* TagSelectorTableViewController.swift */,
@@ -327,6 +330,7 @@
 				D180BD1B248D96DF00BE1423 /* AppDelegate.swift in Sources */,
 				D1285DBC248ECCA2000A0A75 /* MusicPlayerController.swift in Sources */,
 				D1285DBA248EBEC8000A0A75 /* AppleMusicInterface.swift in Sources */,
+				D1C6480E2491809A0057361D /* PlayViewController.swift in Sources */,
 				D180BD1D248D96DF00BE1423 /* SceneDelegate.swift in Sources */,
 				D1285DC0248EDECD000A0A75 /* TagController.swift in Sources */,
 				D1C6480C24913FDB0057361D /* TagSelectorTableViewController.swift in Sources */,
