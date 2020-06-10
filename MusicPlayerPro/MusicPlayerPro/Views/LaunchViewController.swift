@@ -19,8 +19,12 @@ class LaunchViewController: UIViewController {
         
         let controller = (UIApplication.shared.delegate as! AppDelegate).tagController
         
+        controller.createTag(tagName: "Favorites")
+        controller.createTag(tagName: "Cameron")
+        controller.createTag(tagName: "Bops")
+        
         print(controller.createTag(tagName: "anotherTag"))
-    
+        
         
         
         /*let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController

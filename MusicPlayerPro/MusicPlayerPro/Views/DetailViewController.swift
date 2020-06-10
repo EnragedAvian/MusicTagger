@@ -12,11 +12,14 @@ import MediaPlayer
 class DetailViewController: UIViewController, UITableViewDataSource {
     var masterCollection = MPMediaItemCollection.init(items: [])
     var masterCollectionID = MPMediaEntityPersistentID()
+    var masterMediaType = mediaType.song
     
     @IBOutlet weak var mediaTitle: UILabel!
     @IBOutlet weak var mediaArtist: UILabel!
     @IBOutlet weak var mediaImage: UIImageView!
     
+    @IBOutlet weak var contentTable: UITableView!
+    @IBOutlet weak var showTags: UIButton!
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -25,10 +28,24 @@ class DetailViewController: UIViewController, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print (masterCollection.count)
         return masterCollection.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let myCell = tableView.dequeueReusableCell(withIdentifier: "prototypeDetailCell") as? DetailViewCell {
+            
+            print("making cell")
+            
+            let content = masterCollection.items[indexPath.row].title
+            
+            myCell.contentName.text = content
+            myCell.contentID = masterCollection.items[indexPath.row].persistentID
+            
+            return myCell
+            
+        }
+        
         
         return UITableViewCell()
     }
@@ -56,6 +73,8 @@ class DetailViewController: UIViewController, UITableViewDataSource {
             collectionType = mediaType.song
         }
         
+        masterMediaType = collectionType
+        
         guard let unwrappedPreLoadID = preLoadID as? MPMediaEntityPersistentID else {
             print("Can't read id of preload ID")
             return
@@ -74,12 +93,12 @@ class DetailViewController: UIViewController, UITableViewDataSource {
             
             let query = MPMediaQuery(filterPredicates: filterSet)
             
-            guard let unwrappedQuery: [MPMediaItemCollection] = query.collections else {
+            guard let unwrappedQuery: [MPMediaItem] = query.items else {
                 print ("Couldn't unwrap query collection")
                 return
             }
             
-            masterCollection = unwrappedQuery[0]
+            masterCollection = MPMediaItemCollection(items: unwrappedQuery)
             
             var albumCover: MPMediaItemArtwork?
             
@@ -95,6 +114,7 @@ class DetailViewController: UIViewController, UITableViewDataSource {
                 mediaImage.image = UIImage(systemName: "music.note.list")?.withTintColor(UIColor.lightText)
             }
             
+            contentTable.dataSource = self
             
             return
         case .playlist:
@@ -105,6 +125,17 @@ class DetailViewController: UIViewController, UITableViewDataSource {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func pressShowTags(_ sender: Any) {
+        UserDefaults.standard.set(masterCollectionID, forKey: "tagViewID")
+        switch (masterMediaType) {
+        case .song:
+            UserDefaults.standard.set("song", forKey: "tagViewType")
+        case .album:
+            UserDefaults.standard.set("album", forKey: "tagViewType")
+        case .playlist:
+            UserDefaults.standard.set("playlist", forKey: "tagViewType")
+        }
+    }
     
     
     /*

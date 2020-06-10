@@ -20,9 +20,9 @@ class TagController {
     var albumTagDict = TagDict()
     var playlistTagDict = TagDict()
     
-    var allSongs = TagDict()
-    var allAlbums = TagDict()
-    var allPlaylists = TagDict()
+    var allSongs = ItemDict()
+    var allAlbums = ItemDict()
+    var allPlaylists = ItemDict()
     
     var defaults = UserDefaults.standard
     
@@ -59,7 +59,7 @@ class TagController {
         
         RefreshTags()
         
-        
+        print(allTags)
         
     }
     
@@ -98,51 +98,125 @@ class TagController {
     }
     
     func RefreshTags() -> Void {
-        guard let readTags = defaults.array(forKey: AppleMusicInterface.allTagsDefaultsKey) as? [String] else {
-            allTags = [String]()
-            print("Could not load tags from memory")
-            return
-        }
-        
-        allTags = readTags
-        
-        guard let readSongItems = defaults.object(forKey: AppleMusicInterface.allSongTagsDefaultsKey) as? TagDict else {
-            print("Could not load tagged songs")
-            return
-        }
-        songTagDict = readSongItems
-        
-        guard let readAlbumItems = defaults.object(forKey: AppleMusicInterface.allAlbumTagsDefaultsKey) as? TagDict else {
-            print("Could not load tagged albums")
-            return
-        }
-        albumTagDict = readAlbumItems
-        
-        guard let readPlaylistItems = defaults.object(forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey) as? TagDict else {
-            print("Could not load tagged playlists")
-            return
-        }
-        playlistTagDict = readPlaylistItems
-        
-        /*for tagName in allTags {
-            guard let readSongItems = defaults.array(forKey: "SongTag-" + tagName) as? [String] else {
-                print("Could not load songs for tag " + tagName)
-                break
+        if defaults.array(forKey: AppleMusicInterface.allTagsDefaultsKey) != nil {
+            print("reading from memory")
+            guard let readTags = defaults.array(forKey: AppleMusicInterface.allTagsDefaultsKey) as? [String] else {
+                allTags = [String]()
+                print("Could not load tags from memory")
+                return
             }
-            songTagDict[tagName] = readSongItems
             
-            guard let readAlbumItems = defaults.array(forKey: "AlbumTag-" + tagName) as? [String] else {
-                print("Could not load Albums for tag " + tagName)
-                break
+            allTags = readTags
+        }
+
+        
+        if defaults.data(forKey: AppleMusicInterface.allSongTagsDefaultsKey) != nil {
+            guard let readSongItems = defaults.data(forKey: AppleMusicInterface.allSongTagsDefaultsKey) else {
+                print("Could not load tagged songs")
+                return
             }
-            albumTagDict[tagName] = readAlbumItems
             
-            guard let readPlaylistItems = defaults.array(forKey: "PlaylistTag-" + tagName) as? [String] else {
-                print("Could not load Playlists for tag " + tagName)
-                break
+            let unwrappedReadSongItems = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(readSongItems)
+            
+            guard let convertedSongItems = unwrappedReadSongItems as? TagDict else {
+                print("Could not load tagged songs")
+                return
             }
-            playlistTagDict[tagName] = readPlaylistItems
-        }*/
+            
+            songTagDict = convertedSongItems
+        }
+        
+        
+        
+        if defaults.data(forKey: AppleMusicInterface.allAlbumTagsDefaultsKey) != nil {
+            guard let readAlbumItems = defaults.data(forKey: AppleMusicInterface.allAlbumTagsDefaultsKey) else {
+                print("Could not load tagged albums")
+                return
+            }
+            
+            let unwrappedReadAlbums = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(readAlbumItems as Data)
+            
+            guard let convertedReadAlbums = unwrappedReadAlbums as? TagDict else {
+                print("Could not load tagged albums")
+                return
+            }
+            
+            albumTagDict = convertedReadAlbums
+        }
+        
+        
+        
+        if defaults.data(forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey) != nil {
+            guard let readPlaylistItems = defaults.data(forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey) else {
+                print("Could not load tagged playlists")
+                return
+            }
+            
+            let unwrappedReadPlaylistItems = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(readPlaylistItems as Data)
+            
+            guard let convertedPlaylistItems = unwrappedReadPlaylistItems as? TagDict else {
+                print("Could not load tagged playlists")
+                return
+            }
+            
+            playlistTagDict = convertedPlaylistItems
+        }
+        
+        
+        
+        if defaults.data(forKey: AppleMusicInterface.allSongsDefaultsKey) != nil {
+            guard let readSongTagItems = defaults.data(forKey: AppleMusicInterface.allSongsDefaultsKey) else {
+                print("Could not load song tags")
+                return
+            }
+            
+            let unwrappedReadSongTagItems = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(readSongTagItems as Data)
+            
+            guard let convertedSongTagItems = unwrappedReadSongTagItems as? ItemDict else {
+                print("could not load song tags")
+                return
+            }
+            
+            allSongs = convertedSongTagItems
+        }
+        
+        
+        
+        if defaults.data(forKey: AppleMusicInterface.allAlbumsDefaultsKey) == nil {
+            guard let readAlbumTagItems = defaults.data(forKey: AppleMusicInterface.allAlbumsDefaultsKey) else {
+                print("Could not load album tags")
+                return
+            }
+            
+            let unwrappedReadAlbumTagItems = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(readAlbumTagItems as Data)
+            
+            guard let convertedAlbumTagItems = unwrappedReadAlbumTagItems as? ItemDict else {
+                print("could not load album tags")
+                return
+            }
+            
+            allAlbums = convertedAlbumTagItems
+            print(allAlbums)
+        }
+        
+        
+        
+        if defaults.data(forKey: AppleMusicInterface.allPlaylistsDefaultsKey) == nil {
+            guard let readPlaylistTagItems = defaults.data(forKey: AppleMusicInterface.allPlaylistsDefaultsKey) else {
+                print("Could not load playlist tags")
+                return
+            }
+            
+            let unwrappedReadPlaylistTagItems = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(readPlaylistTagItems as Data)
+            
+            guard let convertedPlaylistTagItems = unwrappedReadPlaylistTagItems as? ItemDict else {
+                print("could not load playlist tags")
+                return
+            }
+            
+            allPlaylists = convertedPlaylistTagItems
+        }
+        
     }
     
     func ValidateTag(tagName: String) -> Bool {
@@ -154,9 +228,9 @@ class TagController {
         return false
     }
     
-    func returnSongsWithTag(tagName: String) -> [String] {
+    func returnSongsWithTag(tagName: String) -> [MPMediaEntityPersistentID] {
         if ValidateTag(tagName: tagName) {
-            guard let returnSongs: [String] = songTagDict[tagName] else {
+            guard let returnSongs: [MPMediaEntityPersistentID] = songTagDict[tagName] else {
                 print("Could not find songs with given tag name")
                 return []
             }
@@ -168,9 +242,9 @@ class TagController {
         return []
     }
     
-    func returnAlbumsWithTag(tagName: String) -> [String] {
+    func returnAlbumsWithTag(tagName: String) -> [MPMediaEntityPersistentID] {
         if ValidateTag(tagName: tagName) {
-            guard let returnAlbums: [String] = albumTagDict[tagName] else {
+            guard let returnAlbums: [MPMediaEntityPersistentID] = albumTagDict[tagName] else {
                 print("Could not find albums with given tag name")
                 return []
             }
@@ -182,9 +256,9 @@ class TagController {
         return []
     }
     
-    func returnPlaylistsWithTag(tagName: String) -> [String] {
+    func returnPlaylistsWithTag(tagName: String) -> [MPMediaEntityPersistentID] {
         if ValidateTag(tagName: tagName) {
-            guard let returnPlaylists: [String] = playlistTagDict[tagName] else {
+            guard let returnPlaylists: [MPMediaEntityPersistentID] = playlistTagDict[tagName] else {
                 print("Could not find playlists with given tag name")
                 return []
             }
@@ -196,7 +270,7 @@ class TagController {
         return []
     }
     
-    func returnMediaTags(mediaID: String, myMediaType: mediaType) -> [String] {
+    func returnMediaTags(mediaID: MPMediaEntityPersistentID, myMediaType: mediaType) -> [String] {
         switch (myMediaType) {
         case .song:
             guard let unwrappedTags: [String] = allSongs[mediaID] else {
@@ -219,22 +293,35 @@ class TagController {
     func createTag(tagName: String) -> Bool {
         if !ValidateTag(tagName: tagName) {
             allTags.append(tagName)
+            
             defaults.set(allTags, forKey: AppleMusicInterface.allTagsDefaultsKey)
             
             if songTagDict[tagName] == nil {
                 songTagDict[tagName] = []
             }
-            defaults.set(songTagDict, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
+            
+            let archivedSongTagDict = try? NSKeyedArchiver.archivedData(withRootObject: songTagDict, requiringSecureCoding: false)
+            
+            defaults.set(archivedSongTagDict, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
             
             if albumTagDict[tagName] == nil {
                 albumTagDict[tagName] = []
             }
-            defaults.set(albumTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
+            
+            let archivedAlbumTagDict = try? NSKeyedArchiver.archivedData(withRootObject: albumTagDict, requiringSecureCoding: false)
+            
+            defaults.set(archivedAlbumTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
             
             if playlistTagDict[tagName] == nil {
                 playlistTagDict[tagName] = []
             }
-            defaults.set(playlistTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
+            
+            let archivedPlaylistTagDict = try? NSKeyedArchiver.archivedData(withRootObject: playlistTagDict, requiringSecureCoding: false)
+            
+            defaults.set(archivedPlaylistTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
+            
+            print(allTags)
+            
             return true
         }
         print ("Tag already exists")
@@ -248,7 +335,7 @@ class TagController {
         return false;
     }*/
     
-    func tagMedia(mediaID: String, tagName: String, tagType: mediaType) -> Bool {
+    func tagMedia(mediaID: MPMediaEntityPersistentID, tagName: String, tagType: mediaType) -> Bool {
         var mediaFilter: MPMediaPropertyPredicate
         var mediaProperty: String
         
@@ -295,22 +382,32 @@ class TagController {
             }
             
             if (!hasTag) {
+                print("adding tag")
                 unwrappedNewMediaTags.append(tagName)
             }
             
             switch (tagType) {
             case .song:
                 allSongs[mediaID] = unwrappedNewMediaTags
-                defaults.set(allSongs, forKey: AppleMusicInterface.allSongsDefaultsKey)
+                
+                let archivedAllSongs = try? NSKeyedArchiver.archivedData(withRootObject: allSongs, requiringSecureCoding: false)
+                
+                defaults.set(archivedAllSongs, forKey: AppleMusicInterface.allSongsDefaultsKey)
             case .album:
                 allAlbums[mediaID] = unwrappedNewMediaTags
-                defaults.set(allAlbums, forKey: AppleMusicInterface.allAlbumsDefaultsKey)
+                
+                let archivedAllAlbums = try? NSKeyedArchiver.archivedData(withRootObject: allAlbums, requiringSecureCoding: false)
+                
+                defaults.set(archivedAllAlbums, forKey: AppleMusicInterface.allAlbumsDefaultsKey)
             case .playlist:
                 allPlaylists[mediaID] = unwrappedNewMediaTags
-                defaults.set(allAlbums, forKey: AppleMusicInterface.allPlaylistsDefaultsKey)
+                
+                let archivedAllAplaylists = try? NSKeyedArchiver.archivedData(withRootObject: allPlaylists, requiringSecureCoding: false)
+                
+                defaults.set(archivedAllAplaylists, forKey: AppleMusicInterface.allPlaylistsDefaultsKey)
             }
             
-            var newMediaTagDict: [String]?
+            var newMediaTagDict: [MPMediaEntityPersistentID]?
             switch (tagType) {
             case .song:
                 newMediaTagDict = songTagDict[tagName]
@@ -321,10 +418,10 @@ class TagController {
             }
             
             if newMediaTagDict == nil {
-                newMediaTagDict = [String]()
+                newMediaTagDict = [MPMediaEntityPersistentID]()
             }
             
-            guard var unwrappedNewMediaTagDict: [String] = newMediaTagDict else {
+            guard var unwrappedNewMediaTagDict: [MPMediaEntityPersistentID] = newMediaTagDict else {
                 print ("Error unwrapping variable")
                 return false
             }
@@ -343,13 +440,22 @@ class TagController {
             switch (tagType) {
             case .song:
                 songTagDict[tagName] = unwrappedNewMediaTagDict
-                defaults.set(songTagDict, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
+                
+                let archivedSongTagDict = try? NSKeyedArchiver.archivedData(withRootObject: songTagDict, requiringSecureCoding: false)
+                
+                defaults.set(archivedSongTagDict, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
             case .album:
                 albumTagDict[tagName] = unwrappedNewMediaTagDict
-                defaults.set(songTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
+                
+                let archivedAlbumTagDict = try? NSKeyedArchiver.archivedData(withRootObject: albumTagDict, requiringSecureCoding: false)
+                
+                defaults.set(archivedAlbumTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
             case .playlist:
                 playlistTagDict[tagName] = unwrappedNewMediaTagDict
-                defaults.set(songTagDict, forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey)
+                
+                let archivedPlaylistTagDict = try? NSKeyedArchiver.archivedData(withRootObject: playlistTagDict, requiringSecureCoding: false)
+                
+                defaults.set(archivedPlaylistTagDict, forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey)
             }
             
             return true
@@ -358,161 +464,7 @@ class TagController {
         return false
     }
     
-    /*func tagSong(songID: String, tagName: String) -> Bool {
-        let songFilter = MPMediaPropertyPredicate(value: songID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
-        
-        let filterSet = Set([songFilter])
-        
-        let query = MPMediaQuery(filterPredicates: filterSet)
-        
-        if query.items != nil && ValidateTag(tagName: tagName) {
-            var newSongTags = allSongs[songID]
-            if newSongTags == nil {
-                newSongTags = [String]()
-            }
-            var hasTag = false
-            for item in newSongTags! {
-                if item == tagName {
-                    hasTag = true
-                }
-            }
-            
-            if (!hasTag) {
-                newSongTags?.append(tagName)
-            }
-            
-            allSongs[songID] = newSongTags
-            
-            var newSongTagDict = songTagDict[tagName]
-            if newSongTagDict == nil {
-                newSongTagDict = [String]()
-            }
-            var hasSong = false
-            for item in newSongTagDict! {
-                if item == songID {
-                    hasSong = true
-                }
-            }
-            
-            if (!hasSong) {
-                newSongTagDict?.append(songID)
-            }
-
-            songTagDict[tagName] = newSongTagDict
-            
-            defaults.set(allSongs, forKey: AppleMusicInterface.allSongsDefaultsKey)
-            defaults.set(songTagDict, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
-            
-            return true;
-        }
-        
-        return false;
-    }
-    
-    func tagAlbum(albumID: String, tagName: String) -> Bool {
-        let albumFilter = MPMediaPropertyPredicate(value: albumID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: .equalTo)
-        
-        let filterSet = Set([albumFilter])
-        
-        let query = MPMediaQuery(filterPredicates: filterSet)
-        
-        if query.items != nil && ValidateTag(tagName: tagName) {
-            var newAlbumTags = allAlbums[albumID]
-            if newAlbumTags == nil {
-                newAlbumTags = [String]()
-            }
-            var hasTag = false
-            for item in newAlbumTags! {
-                if item == tagName {
-                    hasTag = true
-                }
-            }
-            
-            if (!hasTag) {
-                newAlbumTags?.append(tagName)
-            }
-            
-            allAlbums[albumID] = newAlbumTags
-            
-            var newAlbumTagDict = albumTagDict[tagName]
-            if newAlbumTagDict == nil {
-                newAlbumTagDict = [String]()
-            }
-            var hasAlbum = false
-            for item in newAlbumTagDict! {
-                if item == albumID {
-                    hasAlbum = true
-                }
-            }
-            
-            if (!hasAlbum) {
-                newAlbumTagDict?.append(albumID)
-            }
-
-            albumTagDict[tagName] = newAlbumTagDict
-            
-            defaults.set(allAlbums, forKey: AppleMusicInterface.allAlbumsDefaultsKey)
-            defaults.set(albumTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
-            
-            return true;
-        }
-        
-        return false;
-    }
-    
-    func tagPlaylist(playlistID: String, tagName: String) -> Bool {
-        let playlistFilter = MPMediaPropertyPredicate(value: playlistID, forProperty: MPMediaPlaylistPropertyPersistentID, comparisonType: .equalTo)
-        
-        let filterSet = Set([playlistFilter])
-        
-        let query = MPMediaQuery(filterPredicates: filterSet)
-        
-        if query.items != nil && ValidateTag(tagName: tagName) {
-            var newPlaylistTags = allPlaylists[playlistID]
-            if newPlaylistTags == nil {
-                newPlaylistTags = [String]()
-            }
-            var hasTag = false
-            for item in newPlaylistTags! {
-                if item == tagName {
-                    hasTag = true
-                }
-            }
-            
-            if (!hasTag) {
-                newPlaylistTags?.append(tagName)
-            }
-            
-            allPlaylists[playlistID] = newPlaylistTags
-            
-            var newPlaylistTagDict = playlistTagDict[tagName]
-            if newPlaylistTagDict == nil {
-                newPlaylistTagDict = [String]()
-            }
-            var hasPlaylist = false
-            for item in newPlaylistTagDict! {
-                if item == playlistID {
-                    hasPlaylist = true
-                }
-            }
-            
-            if (!hasPlaylist) {
-                newPlaylistTagDict?.append(playlistID)
-            }
-
-            playlistTagDict[tagName] = newPlaylistTagDict
-            
-            defaults.set(allPlaylists, forKey: AppleMusicInterface.allPlaylistsDefaultsKey)
-            defaults.set(playlistTagDict, forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey)
-            
-            return true;
-        }
-        
-        
-        return false;
-    }*/
-    
-    func removeTagMedia(mediaID: String, tagName: String, tagType: mediaType) -> Bool {
+    func removeTagMedia(mediaID: MPMediaEntityPersistentID, tagName: String, tagType: mediaType) -> Bool {
         var mediaFilter: MPMediaPropertyPredicate
         switch(tagType) {
         case .song:
@@ -557,16 +509,25 @@ class TagController {
             switch (tagType) {
             case .song:
                 allSongs[mediaID] = unwrappedNewMediaTags
-                defaults.set(allSongs, forKey: AppleMusicInterface.allSongsDefaultsKey)
+                
+                let archivedAllSongs = try? NSKeyedArchiver.archivedData(withRootObject: allSongs, requiringSecureCoding: false)
+                
+                defaults.set(archivedAllSongs, forKey: AppleMusicInterface.allSongsDefaultsKey)
             case .album:
                 allAlbums[mediaID] = unwrappedNewMediaTags
-                defaults.set(allAlbums, forKey: AppleMusicInterface.allAlbumsDefaultsKey)
+                
+                let archivedAllAlbums = try? NSKeyedArchiver.archivedData(withRootObject: allAlbums, requiringSecureCoding: false)
+                
+                defaults.set(archivedAllAlbums, forKey: AppleMusicInterface.allAlbumsDefaultsKey)
             case .playlist:
                 allPlaylists[mediaID] = unwrappedNewMediaTags
-                defaults.set(allPlaylists, forKey: AppleMusicInterface.allPlaylistsDefaultsKey)
+                
+                let archivedAllPlaylists = try? NSKeyedArchiver.archivedData(withRootObject: allPlaylists, requiringSecureCoding: false)
+                
+                defaults.set(archivedAllPlaylists, forKey: AppleMusicInterface.allPlaylistsDefaultsKey)
             }
             
-            var newMediaTagDict: [String]?
+            var newMediaTagDict: [MPMediaEntityPersistentID]?
             
             switch(tagType) {
             case .song:
@@ -578,10 +539,10 @@ class TagController {
             }
             
             if newMediaTagDict == nil {
-                newMediaTagDict = [String]()
+                newMediaTagDict = [MPMediaEntityPersistentID]()
             }
             
-            guard var unwrappedNewMediaTagDict: [String] = newMediaTagDict else {
+            guard var unwrappedNewMediaTagDict: [MPMediaEntityPersistentID] = newMediaTagDict else {
                 print ("Error unwrapping variable")
                 return false
             }
@@ -596,13 +557,20 @@ class TagController {
             switch (tagType) {
             case .song:
                 songTagDict[tagName] = unwrappedNewMediaTagDict
-                defaults.set(songTagDict, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
+                
+                let archivedData = try? NSKeyedArchiver.archivedData(withRootObject: songTagDict, requiringSecureCoding: false)
+                
+                defaults.set(archivedData, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
             case .album:
                 albumTagDict[tagName] = unwrappedNewMediaTagDict
-                defaults.set(albumTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
+                
+                let archivedData = try? NSKeyedArchiver.archivedData(withRootObject: albumTagDict, requiringSecureCoding: false)
+                defaults.set(archivedData, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
             case .playlist:
                 playlistTagDict[tagName] = unwrappedNewMediaTagDict
-                defaults.set(playlistTagDict, forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey)
+                
+                let archivedData = try? NSKeyedArchiver.archivedData(withRootObject: playlistTagDict, requiringSecureCoding: false)
+                defaults.set(archivedData, forKey: AppleMusicInterface.allPlaylistTagsDefaultsKey)
             }
             
             return true
@@ -611,144 +579,10 @@ class TagController {
         
         return false
     }
-    
-    /*func removeTagSong(songID: String, tagName: String) -> Bool {
-        let songFilter = MPMediaPropertyPredicate(value: songID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
-        
-        let filterSet = Set([songFilter])
-        
-        let query = MPMediaQuery(filterPredicates: filterSet)
-        
-        if query.items != nil && ValidateTag(tagName: tagName) {
-            var newSongTags = allSongs[songID]
-            if newSongTags == nil {
-                newSongTags = [String]()
-            }
-            
-            guard var unwrappedNewSongTags: [String] = newSongTags else {
-                print ("Error unwrapping variable")
-                return false
-            }
-            
-            for i in 0..<unwrappedNewSongTags.count {
-                if unwrappedNewSongTags[i] == tagName {
-                    unwrappedNewSongTags.remove(at: i)
-                    break
-                }
-            }
-            
-            allSongs[songID] = unwrappedNewSongTags
-            
-            var newSongTagDict = songTagDict[tagName]
-            if newSongTagDict == nil {
-                newSongTagDict = [String]()
-            }
-            
-            guard var unwrappedNewSongTagDict: [String] = newSongTagDict else {
-                print ("Error unwrapping variable")
-                return false
-            }
-            
-            for i in 0..<unwrappedNewSongTagDict.count {
-                if unwrappedNewSongTagDict[i] == songID {
-                    unwrappedNewSongTagDict.remove(at: i)
-                    break
-                }
-            }
-
-            songTagDict[tagName] = unwrappedNewSongTagDict
-            
-            defaults.set(allSongs, forKey: AppleMusicInterface.allSongsDefaultsKey)
-            defaults.set(songTagDict, forKey: AppleMusicInterface.allSongTagsDefaultsKey)
-            
-            return true;
-        }
-        
-        return false;
-    }
-    
-    func removeTagAlbum(albumID: String, tagName: String) -> Bool {
-        let albumFilter = MPMediaPropertyPredicate(value: albumID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: .equalTo)
-        
-        let filterSet = Set([albumFilter])
-        
-        let query = MPMediaQuery(filterPredicates: filterSet)
-        
-        if query.items != nil && ValidateTag(tagName: tagName) {
-            var newAlbumTags = allAlbums[albumID]
-            if newAlbumTags == nil {
-                newAlbumTags = [String]()
-            }
-            
-            guard var unwrappedNewAlbumTags: [String] = newAlbumTags else {
-                print ("Error unwrapping variable")
-                return false
-            }
-            
-            for i in 0..<unwrappedNewAlbumTags.count {
-                if unwrappedNewAlbumTags[i] == tagName {
-                    unwrappedNewAlbumTags.remove(at: i)
-                    break
-                }
-            }
-            
-            allAlbums[albumID] = unwrappedNewAlbumTags
-            
-            var newAlbumTagDict = albumTagDict[tagName]
-            if newAlbumTagDict == nil {
-                newAlbumTagDict = [String]()
-            }
-            
-            guard var unwrappedNewAlbumTagDict: [String] = newAlbumTagDict else {
-                print ("Error unwrapping variable")
-                return false
-            }
-            
-            for i in 0..<unwrappedNewAlbumTagDict.count {
-                if unwrappedNewAlbumTagDict[i] == albumID {
-                    unwrappedNewAlbumTagDict.remove(at: i)
-                    break
-                }
-            }
-
-            albumTagDict[tagName] = unwrappedNewAlbumTagDict
-            
-            defaults.set(allAlbums, forKey: AppleMusicInterface.allAlbumsDefaultsKey)
-            defaults.set(albumTagDict, forKey: AppleMusicInterface.allAlbumTagsDefaultsKey)
-            
-            return true;
-        }
-        
-        return false;
-    }*/
-    
-    /*func deleteTag(tagName: String) -> Bool {
-        if ValidateTag(tagName: tagName) {
-            if songTagDict[tagName] == nil {
-                songTagDict[tagName] = [String]()
-            }
-            
-            var unwrapped
-        }
-    }*/
-    
-    /*func removeTag(tagName: String) -> Bool {
-        if ValidateTag(tagName: tagName) {
-            if songTagDict[tagName] != nil {P
-                for song in
-            }
-        }
-        print ("Tag does not exist")
-        return false;
-    }*/
-    
-    /*func returnSongTags(songID: String) -> [String] {
-        
-    }*/
-    
 }
 
-typealias TagDict = [String: [String]]
+typealias TagDict = [String: [UInt64]]
+typealias ItemDict = [UInt64: [String]]
 
 enum mediaType {
     case song

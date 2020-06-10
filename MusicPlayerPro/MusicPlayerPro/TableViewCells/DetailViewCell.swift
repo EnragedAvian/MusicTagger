@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class DetailViewCell: UITableViewCell {
 
     @IBOutlet weak var contentName: UILabel!
+    var contentID = MPMediaEntityPersistentID()
     
     override func awakeFromNib() {
         super.awakeFromNib()

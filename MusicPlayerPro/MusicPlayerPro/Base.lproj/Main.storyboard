@@ -441,10 +441,10 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ALBUM ARTIST" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXh-Nt-ga7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ALBUM ARTIST" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXh-Nt-ga7">
                                 <rect key="frame" x="16" y="198" width="343" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -471,6 +471,9 @@
                                                     <state key="normal" image="tag.fill" catalog="system">
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                     </state>
+                                                    <connections>
+                                                        <segue destination="C9c-dN-dDT" kind="show" id="Y0x-Gd-nMP"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ql-5S-TlU">
                                                     <rect key="frame" x="270" y="2" width="40" height="40"/>
@@ -516,6 +519,10 @@
                                 <state key="normal" image="tag.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressShowTags:" destination="wjZ-AZ-mNP" eventType="touchDown" id="FrK-4t-Dsk"/>
+                                    <segue destination="C9c-dN-dDT" kind="show" id="9ys-IC-fyJ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALBUM TITLE" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N91-jx-zuc">
                                 <rect key="frame" x="200" y="20" width="155" height="24"/>
@@ -540,21 +547,79 @@
                     </view>
                     <navigationItem key="navigationItem" id="eq9-F5-q6b"/>
                     <connections>
+                        <outlet property="contentTable" destination="gVE-hu-cn8" id="0Yi-2Y-LnH"/>
                         <outlet property="mediaArtist" destination="VXh-Nt-ga7" id="VTL-WO-0z2"/>
                         <outlet property="mediaImage" destination="dzC-N8-2M7" id="Kj9-L6-Z2v"/>
                         <outlet property="mediaTitle" destination="N91-jx-zuc" id="NtT-JY-LDy"/>
+                        <outlet property="showTags" destination="v5L-fV-UNQ" id="COm-6D-OU8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFs-NI-woW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3874.4000000000001" y="1756.4039408866995"/>
         </scene>
+        <!--Tag Selector Table View Controller-->
+        <scene sceneID="5o2-7H-5BG">
+            <objects>
+                <tableViewController id="C9c-dN-dDT" customClass="TagSelectorTableViewController" customModule="MusicPlayerPro" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gsA-TJ-xDs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="prorotypeTagSelector" id="oXN-7h-LpN" customClass="TagSelectorCell" customModule="MusicPlayerPro" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oXN-7h-LpN" id="dPK-0V-QLr">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TAG NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YSe-sU-eeq">
+                                            <rect key="frame" x="16" y="11" width="248" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKo-0Q-wxm">
+                                            <rect key="frame" x="319" y="2" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="plus.circle" catalog="system">
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="pressAddTag:" destination="oXN-7h-LpN" eventType="touchUpInside" id="Jam-I5-uaJ"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="selectTagButton" destination="xKo-0Q-wxm" id="ceL-u1-YCp"/>
+                                    <outlet property="tagNameLabel" destination="YSe-sU-eeq" id="xiY-Ih-gpT"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="C9c-dN-dDT" id="ruV-3r-hs3"/>
+                            <outlet property="delegate" destination="C9c-dN-dDT" id="n9j-Kw-0rJ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="vec-P0-ehI"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u4c-vY-V6j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3874.4000000000001" y="2468.7192118226603"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="9ys-IC-fyJ"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="music.note" catalog="system" width="97" height="128"/>
         <image name="play.circle" catalog="system" width="128" height="121"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="tag.fill" catalog="system" width="128" height="116"/>
     </resources>
 </document>
