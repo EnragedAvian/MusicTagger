@@ -20,8 +20,11 @@
 		D180BD27248D96DF00BE1423 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D180BD25248D96DF00BE1423 /* LaunchScreen.storyboard */; };
 		D180BD32248D96E000BE1423 /* MusicPlayerProTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D180BD31248D96E000BE1423 /* MusicPlayerProTests.swift */; };
 		D180BD3D248D96E000BE1423 /* MusicPlayerProUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D180BD3C248D96E000BE1423 /* MusicPlayerProUITests.swift */; };
-		D1FF5D03248FF1C6003BD7D4 /* SampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D02248FF1C6003BD7D4 /* SampleCell.swift */; };
+		D1FF5D03248FF1C6003BD7D4 /* SampleSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D02248FF1C6003BD7D4 /* SampleSongCell.swift */; };
 		D1FF5D05248FF91D003BD7D4 /* SampleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D04248FF91D003BD7D4 /* SampleTableViewController.swift */; };
+		D1FF5D09249073B7003BD7D4 /* SongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D08249073B7003BD7D4 /* SongTableViewController.swift */; };
+		D1FF5D0C24908709003BD7D4 /* SampleAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D0B24908709003BD7D4 /* SampleAlbumCell.swift */; };
+		D1FF5D0E24909113003BD7D4 /* SamplePlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF5D0D24909113003BD7D4 /* SamplePlaylistCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +64,11 @@
 		D180BD38248D96E000BE1423 /* MusicPlayerProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicPlayerProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D180BD3C248D96E000BE1423 /* MusicPlayerProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerProUITests.swift; sourceTree = "<group>"; };
 		D180BD3E248D96E000BE1423 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D1FF5D02248FF1C6003BD7D4 /* SampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCell.swift; sourceTree = "<group>"; };
+		D1FF5D02248FF1C6003BD7D4 /* SampleSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleSongCell.swift; sourceTree = "<group>"; };
 		D1FF5D04248FF91D003BD7D4 /* SampleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTableViewController.swift; sourceTree = "<group>"; };
+		D1FF5D08249073B7003BD7D4 /* SongTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewController.swift; sourceTree = "<group>"; };
+		D1FF5D0B24908709003BD7D4 /* SampleAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAlbumCell.swift; sourceTree = "<group>"; };
+		D1FF5D0D24909113003BD7D4 /* SamplePlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePlaylistCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,12 +140,13 @@
 				D180BD1A248D96DF00BE1423 /* AppDelegate.swift */,
 				D1285DB8248EBE91000A0A75 /* Controllers */,
 				D1285DB7248EBE83000A0A75 /* Views */,
+				D1FF5D0A249086D9003BD7D4 /* TableViewCells */,
 				D180BD1C248D96DF00BE1423 /* SceneDelegate.swift */,
-				D1FF5D02248FF1C6003BD7D4 /* SampleCell.swift */,
 				D180BD1E248D96DF00BE1423 /* ViewController.swift */,
 				D180BD20248D96DF00BE1423 /* Main.storyboard */,
 				D1285DB5248E052B000A0A75 /* LaunchViewController.swift */,
 				D1FF5D04248FF91D003BD7D4 /* SampleTableViewController.swift */,
+				D1FF5D08249073B7003BD7D4 /* SongTableViewController.swift */,
 				D180BD23248D96DF00BE1423 /* Assets.xcassets */,
 				D180BD25248D96DF00BE1423 /* LaunchScreen.storyboard */,
 				D180BD28248D96DF00BE1423 /* Info.plist */,
@@ -163,6 +170,16 @@
 				D180BD3E248D96E000BE1423 /* Info.plist */,
 			);
 			path = MusicPlayerProUITests;
+			sourceTree = "<group>";
+		};
+		D1FF5D0A249086D9003BD7D4 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				D1FF5D02248FF1C6003BD7D4 /* SampleSongCell.swift */,
+				D1FF5D0B24908709003BD7D4 /* SampleAlbumCell.swift */,
+				D1FF5D0D24909113003BD7D4 /* SamplePlaylistCell.swift */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,13 +315,16 @@
 			files = (
 				D1285DBE248ED59A000A0A75 /* APIController.swift in Sources */,
 				D180BD1F248D96DF00BE1423 /* ViewController.swift in Sources */,
-				D1FF5D03248FF1C6003BD7D4 /* SampleCell.swift in Sources */,
+				D1FF5D03248FF1C6003BD7D4 /* SampleSongCell.swift in Sources */,
+				D1FF5D0C24908709003BD7D4 /* SampleAlbumCell.swift in Sources */,
 				D180BD1B248D96DF00BE1423 /* AppDelegate.swift in Sources */,
 				D1285DBC248ECCA2000A0A75 /* MusicPlayerController.swift in Sources */,
 				D1FF5D05248FF91D003BD7D4 /* SampleTableViewController.swift in Sources */,
 				D1285DBA248EBEC8000A0A75 /* AppleMusicInterface.swift in Sources */,
 				D180BD1D248D96DF00BE1423 /* SceneDelegate.swift in Sources */,
 				D1285DC0248EDECD000A0A75 /* TagController.swift in Sources */,
+				D1FF5D0E24909113003BD7D4 /* SamplePlaylistCell.swift in Sources */,
+				D1FF5D09249073B7003BD7D4 /* SongTableViewController.swift in Sources */,
 				D1285DB6248E052B000A0A75 /* LaunchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -477,6 +497,7 @@
 		D180BD42248D96E000BE1423 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AR574XWV63;
@@ -495,6 +516,7 @@
 		D180BD43248D96E000BE1423 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AR574XWV63;

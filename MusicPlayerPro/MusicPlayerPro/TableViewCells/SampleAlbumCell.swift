@@ -1,5 +1,5 @@
 //
-//  SampleCell.swift
+//  SampleAlbumCell.swift
 //  MusicPlayerPro
 //
 //  Created by Cameron Bossalini on 6/9/20.
@@ -9,15 +9,15 @@
 import UIKit
 import MediaPlayer
 
-class SampleCell: UITableViewCell {
+class SampleAlbumCell: UITableViewCell {
 
-    var mediaID = MPMediaEntityPersistentID()
-    var cellMediaType: mediaType? = nil
-    
-    @IBOutlet weak var songName: UILabel!
+    @IBOutlet weak var albumCover: UIImageView!
+    @IBOutlet weak var albumName: UILabel!
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var albumCover: UIImageView!
+    
+    var mediaID = MPMediaEntityPersistentID()
+    var cellMediaType: mediaType? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,16 +25,17 @@ class SampleCell: UITableViewCell {
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        //super.setSelected(selected, animated: animated)
+        super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
+    
     @IBAction func pressPlay(_ sender: Any) {
         let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         
-        let songFilter = MPMediaPropertyPredicate(value: mediaID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
+        let albumFilter = MPMediaPropertyPredicate(value: mediaID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: .equalTo)
         
-        let filterSet = Set([songFilter])
+        let filterSet = Set([albumFilter])
         
         let query = MPMediaQuery(filterPredicates: filterSet)
         
@@ -43,4 +44,7 @@ class SampleCell: UITableViewCell {
         controller.Play()
     }
     
+    
+    
+
 }

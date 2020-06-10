@@ -17,8 +17,7 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
+    
         
         
         /*let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController

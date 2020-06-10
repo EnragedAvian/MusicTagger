@@ -18,6 +18,7 @@ class SampleTableViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         let readSongsQuery = MPMediaQuery.songs()
         
         guard let songCollection: [MPMediaItem] = readSongsQuery.items else {
@@ -46,7 +47,7 @@ class SampleTableViewController: UIViewController, UITableViewDataSource {
     
     // Define the creation of a UITableViewCell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let myCell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell") as? SampleCell { // attempt to import prototype cell from storyboard
+        /*if let myCell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell") as? SampleCell { // attempt to import prototype cell from storyboard
             // Retrieve values for rank, name, and score from the arrays
             
             //print("success")
@@ -63,17 +64,19 @@ class SampleTableViewController: UIViewController, UITableViewDataSource {
             myCell.artistName.text = artist
             myCell.mediaID = songID
             
-            guard let unwrappedAlbumCover = albumCover?.image(at: CGSize(width: 120, height: 120)) else {
-                return myCell
+            if albumCover != nil {
+                myCell.albumCover.image = albumCover?.image(at: CGSize(width: 150, height: 150))
+            } else {
+                myCell.albumCover.image = UIImage(systemName: "square.stack.3d.up.slash")
+                myCell.albumCover.image?.withTintColor(UIColor.lightText)
             }
-            
-            myCell.albumCover.image = unwrappedAlbumCover
 
             // return this cell
             return myCell
         }
         // otherwise, return a default table view cell (should never occur but included for the sake of error handling)
-        return SampleCell()
+        return SampleCell()*/
+        return UITableViewCell()
     }
     
 }
