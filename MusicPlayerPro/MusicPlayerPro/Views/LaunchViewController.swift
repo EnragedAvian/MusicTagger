@@ -25,7 +25,7 @@ class LaunchViewController: UIViewController {
         
         print(controller.createTag(tagName: "anotherTag"))
         
-        
+        UserDefaults.standard.set([String](), forKey: "markedTags")
         
         /*let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         

@@ -13,7 +13,7 @@ class ManageTagsViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tagTable: UITableView!
     
-    
+    var refreshTimer = Timer()
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let myCell = tableView.dequeueReusableCell(withIdentifier:
@@ -46,6 +46,9 @@ class ManageTagsViewController: UIViewController, UITableViewDataSource {
         
         refresh()
         
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (Timer) in
+            self.refresh()
+        })
         
         // Do any additional setup after loading the view.
     }

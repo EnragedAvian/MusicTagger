@@ -14,17 +14,37 @@ class NewPlaylistViewController: UIViewController, UITableViewDataSource {
     
     var allTags: [String] = (UIApplication.shared.delegate as! AppDelegate).tagController.allTags
     
+    var refreshTimer = Timer()
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allTags.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let myCell = tableView.dequeueReusableCell(withIdentifier:
-            "prototypeManageTagsCell") as? ManageTagsCell {
+            "prototypeGenerateTagsCell") as? PlaylistTagSelectorCell {
             
             print("making tag cell")
             
             myCell.tagName.text = allTags[indexPath.row]
+            
+            
+            guard let markedTags: [String] = UserDefaults.standard.stringArray(forKey: "markedTags") else {
+                print("could not read tags")
+                return myCell
+            }
+            
+            var present = false
+            for item in markedTags {
+                if item == myCell.tagName.text {
+                    present = true
+                }
+            }
+            
+            if present {
+                myCell.chosen = true
+                myCell.addButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: UIControl.State.normal)
+            }
             
             return myCell
         }
@@ -46,6 +66,10 @@ class NewPlaylistViewController: UIViewController, UITableViewDataSource {
         tagTable.dataSource = self
         
         refresh()
+        
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (Timer) in
+            self.refresh()
+        })
         // Do any additional setup after loading the view.
     }
     

@@ -15,7 +15,7 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var playButton: UIButton!
     
-    
+    var refreshTimer = Timer()
     
     override func viewDidLoad() {
         albumArt.layer.cornerRadius = 10
@@ -25,6 +25,10 @@ class PlayViewController: UIViewController {
         refreshView()
         
         // Do any additional setup after loading the view.
+        
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (Timer) in
+            self.refreshView()
+        })
     }
     
 

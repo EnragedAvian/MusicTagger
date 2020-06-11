@@ -33,6 +33,10 @@ class MusicPlayerController: NSObject {
         musicPlayer.prepend(item)
     }
     
+    func SetQueue(queue: MPMediaItemCollection) {
+        musicPlayer.setQueue(with: queue)
+    }
+    
     func SetQueueQuery(query: MPMediaQuery) {
         musicPlayer.setQueue(with: query)
     }
