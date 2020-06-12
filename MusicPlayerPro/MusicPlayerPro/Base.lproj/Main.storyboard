@@ -15,22 +15,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="meq-0h-T7Z">
-                                <rect key="frame" x="164" y="391" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="meq-0h-T7Z">
+                                <rect key="frame" x="102" y="647" width="171" height="51"/>
+                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="171" id="Hej-G7-ICZ"/>
+                                    <constraint firstAttribute="height" constant="51" id="KBr-Cm-JpF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="32"/>
+                                <state key="normal" title="START">
+                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </state>
                                 <connections>
                                     <segue destination="pqO-ll-woe" kind="presentation" modalPresentationStyle="fullScreen" id="Q3I-2D-OHZ"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Music App.png" highlightedImage="Music App.png" translatesAutoresizingMaskIntoConstraints="NO" id="WYR-wC-NzE">
+                                <rect key="frame" x="20" y="71" width="335" height="335"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="WYR-wC-NzE" secondAttribute="height" multiplier="1:1" id="Uqa-I9-z48"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FpF-B1-gPr">
+                                <rect key="frame" x="84" y="426" width="207" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="207" id="2MN-aJ-9G6"/>
+                                    <constraint firstAttribute="height" constant="43" id="ond-4L-AFC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWe-ee-3K5">
+                                <rect key="frame" x="123.66666666666669" y="479" width="128" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="ORf-yd-dtJ"/>
+                                    <constraint firstAttribute="width" constant="128" id="dDY-cd-x15"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="60"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="FpF-B1-gPr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2lK-uZ-dMp"/>
+                            <constraint firstItem="dWe-ee-3K5" firstAttribute="top" secondItem="FpF-B1-gPr" secondAttribute="bottom" constant="10" id="Atv-mf-lgL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="meq-0h-T7Z" secondAttribute="bottom" constant="80" id="CIR-39-UQh"/>
+                            <constraint firstItem="dWe-ee-3K5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JWE-tO-YQ5"/>
+                            <constraint firstItem="FpF-B1-gPr" firstAttribute="top" secondItem="WYR-wC-NzE" secondAttribute="bottom" constant="20" id="Jvo-F8-fs2"/>
+                            <constraint firstItem="WYR-wC-NzE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="Xbx-BO-D3D"/>
+                            <constraint firstItem="meq-0h-T7Z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cjS-N0-LqE"/>
+                            <constraint firstItem="WYR-wC-NzE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hlK-Ln-2nP"/>
+                            <constraint firstAttribute="trailing" secondItem="WYR-wC-NzE" secondAttribute="trailing" constant="20" id="icd-gG-6CF"/>
+                            <constraint firstItem="WYR-wC-NzE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="27" id="jsf-qn-d9p"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3794" y="-634"/>
+            <point key="canvasLocation" x="-3794.4000000000001" y="-634.72906403940885"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="bFl-Og-cGk">
@@ -390,12 +436,12 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Bs-Cb-glA">
-                                <rect key="frame" x="315" y="55.666666666666657" width="40" height="37.000000000000007"/>
+                                <rect key="frame" x="315" y="55.000000000000007" width="40" height="38.666666666666664"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jUB-cr-jHP"/>
                                     <constraint firstAttribute="width" constant="40" id="urk-gE-ykx"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="plus.square" catalog="system"/>
+                                <state key="normal" backgroundImage="plus.circle" catalog="system"/>
                                 <connections>
                                     <segue destination="EJP-77-drJ" kind="presentation" id="7Bm-1s-Xpd"/>
                                 </connections>
@@ -539,6 +585,9 @@
                                 <state key="normal" image="play.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
+                                <connections>
+                                    <action selector="pressPlay:" destination="wjZ-AZ-mNP" eventType="touchUpInside" id="20N-xi-SyW"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ALBUM ARTIST" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXh-Nt-ga7">
                                 <rect key="frame" x="16" y="198" width="343" height="26"/>
@@ -868,12 +917,12 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJm-6H-RpK">
-                                <rect key="frame" x="315" y="55.666666666666657" width="40" height="37.000000000000007"/>
+                                <rect key="frame" x="315" y="54.333333333333314" width="40" height="39.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="05U-yL-mfe"/>
                                     <constraint firstAttribute="height" constant="40" id="LYA-9N-tm1"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="plus.square" catalog="system"/>
+                                <state key="normal" backgroundImage="plus.square.on.square" catalog="system"/>
                                 <connections>
                                     <segue destination="Kzg-bT-Pg9" kind="popoverPresentation" popoverAnchorView="FJm-6H-RpK" id="cga-6a-hiM">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -1118,6 +1167,7 @@
         <segue reference="7VV-Cf-6jX"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="Music App.png" width="562" height="562"/>
         <image name="backward.fill" catalog="system" width="128" height="79"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="forward.fill" catalog="system" width="128" height="79"/>
@@ -1127,7 +1177,7 @@
         <image name="play.circle" catalog="system" width="128" height="121"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>
-        <image name="plus.square" catalog="system" width="128" height="114"/>
+        <image name="plus.square.on.square" catalog="system" width="128" height="113"/>
         <image name="tag" catalog="system" width="128" height="116"/>
         <image name="tag.fill" catalog="system" width="128" height="116"/>
     </resources>

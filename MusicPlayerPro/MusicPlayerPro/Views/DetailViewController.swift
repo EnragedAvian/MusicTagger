@@ -119,27 +119,32 @@ class DetailViewController: UIViewController, UITableViewDataSource {
             return
         case .playlist:
             print("MasterCollection ID: " + String(masterCollectionID))
-            let playlistFilter = MPMediaPropertyPredicate(value: masterCollectionID, forProperty: MPMediaPlaylistPropertyPersistentID, comparisonType: .equalTo)
             
-            let filterSet = Set([playlistFilter])
             
-            let query = MPMediaQuery(filterPredicates: filterSet)
+            let masterPlaylistQuery = MPMediaQuery.playlists()
             
-            print(query.collections)
-            
-            guard let unwrappedQuery: [MPMediaItemCollection] = query.collections else {
-                print ("Couldn't unwrap query collection")
+            guard let masterPlaylistCollection: [MPMediaItemCollection] = masterPlaylistQuery.collections else {
+                print("Could not read playlists from library")
                 return
             }
             
-            print(unwrappedQuery)
+            var identifiedPlaylist = MPMediaItemCollection(items: [])
             
-            masterCollection = unwrappedQuery[0]
+            for myCollection in masterPlaylistCollection {
+                if myCollection.value(forProperty: MPMediaPlaylistPropertyPersistentID) as? MPMediaEntityPersistentID == masterCollectionID {
+                    identifiedPlaylist = myCollection
+                }
+            }
+            
+            print("Identified Playlist: " + String(identifiedPlaylist.count))
+            print(identifiedPlaylist)
+            
+            masterCollection = identifiedPlaylist
             
             var albumCover: MPMediaItemArtwork?
             
             if masterCollection.items.count > 0 {
-                guard let unwrappedTitle = masterCollection.value(forProperty:MPMediaPlaylistPropertyName) as? String else {
+                guard let unwrappedTitle = identifiedPlaylist.value(forProperty: MPMediaPlaylistPropertyName) as? String else {
                     print("could not read playlist name")
                     return
                 }
@@ -177,6 +182,30 @@ class DetailViewController: UIViewController, UITableViewDataSource {
         }
     }
     
+    @IBAction func pressPlay(_ sender: Any) {
+        let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
+        
+        var myFilter = MPMediaPropertyPredicate()
+        switch (masterMediaType) {
+        case .song:
+            myFilter = MPMediaPropertyPredicate(value: masterCollectionID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
+        case .playlist:
+            myFilter = MPMediaPropertyPredicate(value: masterCollectionID, forProperty: MPMediaPlaylistPropertyPersistentID, comparisonType: .equalTo)
+        case .album:
+            myFilter = MPMediaPropertyPredicate(value: masterCollectionID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: .equalTo)
+        }
+        
+        let filterSet = Set([myFilter])
+        
+        let query = MPMediaQuery(filterPredicates: filterSet)
+        
+        //print(query.collections)
+        
+        controller.SetQueueQuery(query: query)
+        
+        controller.Play()
+        
+    }
     
     /*
     // MARK: - Navigation

@@ -18,6 +18,7 @@ class SongTableViewController: UITableViewController {
     var allSongs = [MPMediaItem]()
     var allAlbums = [MPMediaItemCollection]()
     var allPlaylists = [MPMediaItemCollection]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -156,6 +157,8 @@ class SongTableViewController: UITableViewController {
                 myCell.cellMediaType = .playlist
                 myCell.playlistName.text = name
                 myCell.mediaID = playlistID
+                
+                print(playlistID)
                 
                 if playlistCover != nil {
                     myCell.playlistArt.image = playlistCover?.image(at: CGSize(width: 150, height: 150))

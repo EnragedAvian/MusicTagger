@@ -83,6 +83,7 @@
 		D1C6481724919B290057361D /* PlaylistTagSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTagSelectorCell.swift; sourceTree = "<group>"; };
 		D1C648192491A4E90057361D /* GeneratedPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedPlaylistViewController.swift; sourceTree = "<group>"; };
 		D1C6481B2491AC840057361D /* GeneratedPlaylistSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedPlaylistSongCell.swift; sourceTree = "<group>"; };
+		D1C648202491B31F0057361D /* Music App.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Music App.png"; sourceTree = "<group>"; };
 		D1FF5D02248FF1C6003BD7D4 /* SampleSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleSongCell.swift; sourceTree = "<group>"; };
 		D1FF5D08249073B7003BD7D4 /* SongTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewController.swift; sourceTree = "<group>"; };
 		D1FF5D0B24908709003BD7D4 /* SampleAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAlbumCell.swift; sourceTree = "<group>"; };
@@ -171,6 +172,7 @@
 				D1285DB7248EBE83000A0A75 /* Views */,
 				D1FF5D0A249086D9003BD7D4 /* TableViewCells */,
 				D180BD1C248D96DF00BE1423 /* SceneDelegate.swift */,
+				D1C6481D2491B2BD0057361D /* ImageAssets */,
 				D180BD20248D96DF00BE1423 /* Main.storyboard */,
 				D180BD23248D96DF00BE1423 /* Assets.xcassets */,
 				D180BD25248D96DF00BE1423 /* LaunchScreen.storyboard */,
@@ -195,6 +197,14 @@
 				D180BD3E248D96E000BE1423 /* Info.plist */,
 			);
 			path = MusicPlayerProUITests;
+			sourceTree = "<group>";
+		};
+		D1C6481D2491B2BD0057361D /* ImageAssets */ = {
+			isa = PBXGroup;
+			children = (
+				D1C648202491B31F0057361D /* Music App.png */,
+			);
+			path = ImageAssets;
 			sourceTree = "<group>";
 		};
 		D1FF5D0A249086D9003BD7D4 /* TableViewCells */ = {
@@ -549,7 +559,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = UTS.MusicPlayerPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -568,7 +578,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = UTS.MusicPlayerPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -24,7 +24,7 @@ class NewPlaylistViewController: UIViewController, UITableViewDataSource {
         if let myCell = tableView.dequeueReusableCell(withIdentifier:
             "prototypeGenerateTagsCell") as? PlaylistTagSelectorCell {
             
-            print("making tag cell")
+            //print("making tag cell")
             
             myCell.tagName.text = allTags[indexPath.row]
             

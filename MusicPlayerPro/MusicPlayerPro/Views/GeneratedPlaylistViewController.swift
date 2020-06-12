@@ -27,18 +27,9 @@ class GeneratedPlaylistViewController: UIViewController, UITableViewDataSource {
         }
         
         for tag in readTags {
-            let allSongs = tagController.returnSongsWithTag(tagName: tag)
-            for item in allSongs {
-                var written = false
-                for writtenID in allSongIDs {
-                    if writtenID == item {
-                        written = true
-                    }
-                }
-                if (!written) {
-                    allSongIDs.append(item)
-                }
-            }
+            
+            
+            
             
             let allAlbums = tagController.returnAlbumsWithTag(tagName: tag)
             for item in allAlbums {
@@ -67,6 +58,52 @@ class GeneratedPlaylistViewController: UIViewController, UITableViewDataSource {
                 
             }
             
+            let allPlaylists = tagController.returnPlaylistsWithTag(tagName: tag)
+            print("all playlists")
+            print(allPlaylists)
+            for item in allPlaylists {
+                let masterPlaylistQuery = MPMediaQuery.playlists()
+                
+                guard let masterPlaylistCollection: [MPMediaItemCollection] = masterPlaylistQuery.collections else {
+                    print("Could not read playlists from library")
+                    return
+                }
+                
+                var identifiedPlaylist = MPMediaItemCollection(items: [])
+                
+                for myCollection in masterPlaylistCollection {
+                    if myCollection.value(forProperty: MPMediaPlaylistPropertyPersistentID) as? MPMediaEntityPersistentID == item {
+                        identifiedPlaylist = myCollection
+                    }
+                }
+                
+                for song in identifiedPlaylist.items {
+                    var written = false
+                    for writtenID in allSongIDs {
+                        if writtenID == song.persistentID {
+                            written = true
+                        }
+                    }
+                    if (!written) {
+                        allSongIDs.append(song.persistentID)
+                    }
+                }
+                
+            }
+            
+            let allSongs = tagController.returnSongsWithTag(tagName: tag)
+            for item in allSongs {
+                var written = false
+                for writtenID in allSongIDs {
+                    if writtenID == item {
+                        written = true
+                    }
+                }
+                if (!written) {
+                    allSongIDs.append(item)
+                }
+            }
+            
             var newMediaCollection = [MPMediaItem]()
             
             for item in allSongIDs {
@@ -88,7 +125,7 @@ class GeneratedPlaylistViewController: UIViewController, UITableViewDataSource {
             
             generatedPlaylist = MPMediaItemCollection(items: newMediaCollection)
             
-            print(generatedPlaylist.items)
+            //print(generatedPlaylist.items)
             
             playlistTable.dataSource = self
             playlistTable.rowHeight = 60

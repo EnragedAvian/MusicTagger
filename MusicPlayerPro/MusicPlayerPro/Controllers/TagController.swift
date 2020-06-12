@@ -98,6 +98,8 @@ class TagController {
     }
     
     func RefreshTags() -> Void {
+        print("refresh tags called")
+        
         if defaults.array(forKey: AppleMusicInterface.allTagsDefaultsKey) != nil {
             print("reading from memory")
             guard let readTags = defaults.array(forKey: AppleMusicInterface.allTagsDefaultsKey) as? [String] else {
@@ -182,7 +184,7 @@ class TagController {
         
         
         
-        if defaults.data(forKey: AppleMusicInterface.allAlbumsDefaultsKey) == nil {
+        if defaults.data(forKey: AppleMusicInterface.allAlbumsDefaultsKey) != nil {
             guard let readAlbumTagItems = defaults.data(forKey: AppleMusicInterface.allAlbumsDefaultsKey) else {
                 print("Could not load album tags")
                 return
@@ -196,12 +198,13 @@ class TagController {
             }
             
             allAlbums = convertedAlbumTagItems
-            print(allAlbums)
+            //print("All albums:")
+            //print(allAlbums)
         }
         
         
         
-        if defaults.data(forKey: AppleMusicInterface.allPlaylistsDefaultsKey) == nil {
+        if defaults.data(forKey: AppleMusicInterface.allPlaylistsDefaultsKey) != nil {
             guard let readPlaylistTagItems = defaults.data(forKey: AppleMusicInterface.allPlaylistsDefaultsKey) else {
                 print("Could not load playlist tags")
                 return
@@ -257,6 +260,7 @@ class TagController {
     }
     
     func returnPlaylistsWithTag(tagName: String) -> [MPMediaEntityPersistentID] {
+        print("returning playlists")
         if ValidateTag(tagName: tagName) {
             guard let returnPlaylists: [MPMediaEntityPersistentID] = playlistTagDict[tagName] else {
                 print("Could not find playlists with given tag name")
@@ -279,6 +283,7 @@ class TagController {
             return unwrappedTags
         case .album:
             guard let unwrappedTags: [String] = allAlbums[mediaID] else {
+                print("error reading album tags")
                 return []
             }
             return unwrappedTags
@@ -362,7 +367,7 @@ class TagController {
             case .album:
                 newMediaTags = allAlbums[mediaID]
             case .playlist:
-                newMediaTags = allSongs[mediaID]
+                newMediaTags = allPlaylists[mediaID]
             }
             
             if newMediaTags == nil {
