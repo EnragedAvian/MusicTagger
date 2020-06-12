@@ -8,16 +8,20 @@
 
 import UIKit
 
+// View controller for the playback screen
 class PlayViewController: UIViewController {
 
+    // links to album art, song title, artist name, and play buttons, all of which are dynamically changed
     @IBOutlet weak var albumArt: UIImageView!
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var playButton: UIButton!
     
+    // refresh Timer function that updates the view so that new album art is displayed when the song is changed
     var refreshTimer = Timer()
     
     override func viewDidLoad() {
+        // round the corners of the album art
         albumArt.layer.cornerRadius = 10
         
         super.viewDidLoad()
@@ -25,7 +29,7 @@ class PlayViewController: UIViewController {
         refreshView()
         
         // Do any additional setup after loading the view.
-        
+        // Schedule a timer to refresh the view every second
         refreshTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (Timer) in
             self.refreshView()
         })
@@ -35,6 +39,7 @@ class PlayViewController: UIViewController {
     func refreshView() -> Void {
         let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         
+        // display the album art of the currently playing song
         let readAlbumArt = controller.currentlyPlaying()?.artwork
         
         guard let unwrappedAlbumArt: UIImage = readAlbumArt?.image(at: CGSize(width: 1200, height: 1200)) else {
@@ -44,9 +49,11 @@ class PlayViewController: UIViewController {
         
         albumArt.image = unwrappedAlbumArt
         
+        // update the songTitle and artist name fields
         songTitle.text = controller.currentlyPlaying()?.title
         artistName.text = controller.currentlyPlaying()?.artist
         
+        // contextually change the icon of the play button depending on whether or not media is playing
         if controller.isPlaying() {
             playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: UIControl.State.normal)
         } else {
@@ -55,6 +62,7 @@ class PlayViewController: UIViewController {
         
     }
     
+    // Pause/resume the music when pressing the play button
     @IBAction func pressPlay(_ sender: Any) {
         let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         if controller.isPlaying() {
@@ -66,12 +74,14 @@ class PlayViewController: UIViewController {
         }
     }
     
+    // Skip forward a track
     @IBAction func skipForward(_ sender: Any) {
         let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         controller.skipForward()
         refreshView()
     }
     
+    // Skip back a track
     @IBAction func skipBackward(_ sender: Any) {
         let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         controller.skipBackward()

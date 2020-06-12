@@ -9,11 +9,13 @@
 import UIKit
 import MediaPlayer
 
+// Song cell presented in the view of a generated playlist
 class GeneratedPlaylistSongCell: UITableViewCell {
 
     var mediaID = MPMediaEntityPersistentID()
     var cellMediaType: mediaType? = nil
     
+    // Link the various parameters in the cell
     @IBOutlet weak var albumArt: UIImageView!
     @IBOutlet weak var songName: UILabel!
     @IBOutlet weak var artistName: UILabel!
@@ -29,6 +31,8 @@ class GeneratedPlaylistSongCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    // Queue the song and play it when the play button is pressed
     @IBAction func pressPlay(_ sender: Any) {
         let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         

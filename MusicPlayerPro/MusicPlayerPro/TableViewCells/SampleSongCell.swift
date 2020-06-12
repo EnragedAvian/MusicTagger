@@ -11,9 +11,11 @@ import MediaPlayer
 
 class SampleSongCell: UITableViewCell {
 
+    // variables for the media type and media ID
     var mediaID = MPMediaEntityPersistentID()
     var cellMediaType: mediaType? = nil
     
+    // Link the various items in the cell
     @IBOutlet weak var songName: UILabel!
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var playButton: UIButton!
@@ -30,6 +32,8 @@ class SampleSongCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    // Define action that queues and plays the current song when press play is pressed
     @IBAction func pressPlay(_ sender: Any) {
         let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         
@@ -44,6 +48,7 @@ class SampleSongCell: UITableViewCell {
         controller.Play()
     }
     
+    // When more info is pressed, store the song information in storage and call in a detail view for the entire album
     @IBAction func pressMoreInfo(_ sender: Any) {
         let songFilter = MPMediaPropertyPredicate(value: mediaID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: .equalTo)
         

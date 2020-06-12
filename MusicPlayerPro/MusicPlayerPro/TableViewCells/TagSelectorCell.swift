@@ -9,6 +9,7 @@
 import UIKit
 import MediaPlayer
 
+// Cell defining the cell present in the tag selector window
 class TagSelectorCell: UITableViewCell {
 
     var masterMediaType = mediaType.song
@@ -24,11 +25,12 @@ class TagSelectorCell: UITableViewCell {
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        //super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
+    // Function when a tag is added
     @IBAction func pressAddTag(_ sender: Any) {
         let tagController = (UIApplication.shared.delegate as! AppDelegate).tagController
         
@@ -37,6 +39,7 @@ class TagSelectorCell: UITableViewCell {
                        return
                    }
         
+        // Either add or remove the tag for the given parent media depending on what state the tag is currently in
         if (!enabled) {
             if (tagController.tagMedia(mediaID: masterMediaID, tagName: unwrappedStringText, tagType: masterMediaType)) {
                 print ("Tag Added")

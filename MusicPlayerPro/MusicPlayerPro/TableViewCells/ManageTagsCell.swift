@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Basic cell that displays the name of a tag with no interaction parameters
 class ManageTagsCell: UITableViewCell {
 
     @IBOutlet weak var tagName: UILabel!

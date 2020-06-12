@@ -9,17 +9,20 @@
 import UIKit
 
 class NewPlaylistViewController: UIViewController, UITableViewDataSource {
+    // link table view
     @IBOutlet weak var tagTable: UITableView!
     
-    
+    // Create variable holding all tags
     var allTags: [String] = (UIApplication.shared.delegate as! AppDelegate).tagController.allTags
     
+    // Timer reponsible for refreshing view in the event new tags are added
     var refreshTimer = Timer()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allTags.count
     }
     
+    // Add a cell to the table for each tag stored in memory
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let myCell = tableView.dequeueReusableCell(withIdentifier:
             "prototypeGenerateTagsCell") as? PlaylistTagSelectorCell {
@@ -34,6 +37,7 @@ class NewPlaylistViewController: UIViewController, UITableViewDataSource {
                 return myCell
             }
             
+            // If the tag has already been marked, change the selection icon to reflect this
             var present = false
             for item in markedTags {
                 if item == myCell.tagName.text {
@@ -59,7 +63,7 @@ class NewPlaylistViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var generateButton: UIButton!
     @IBOutlet weak var selectionTable: UITableView!
     
-    
+    // Basic setup functionality
     override func viewDidLoad() {
         super.viewDidLoad()
 

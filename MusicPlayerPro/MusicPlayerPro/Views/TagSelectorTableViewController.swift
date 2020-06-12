@@ -9,6 +9,7 @@
 import UIKit
 import MediaPlayer
 
+// Table view controller for the tag selector
 class TagSelectorTableViewController: UITableViewController {
 
     var masterMediaType = mediaType.song
@@ -18,6 +19,7 @@ class TagSelectorTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // load the type and ID of the content to be tagged from memory
         let preLoadType = UserDefaults.standard.string(forKey: "tagViewType")
         let preLoadID = UserDefaults.standard.object(forKey: "tagViewID")
     
@@ -28,6 +30,7 @@ class TagSelectorTableViewController: UITableViewController {
         
         var collectionType = mediaType.song
         
+        // convert the collection type from string to mediaType
         switch (collectionTypeString) {
         case "album":
             collectionType = mediaType.album
@@ -39,6 +42,7 @@ class TagSelectorTableViewController: UITableViewController {
         
         masterMediaType = collectionType
         
+        // convert the ID into MPMediaEntityPersistent ID type
         guard let unwrappedPreLoadID = preLoadID as? MPMediaEntityPersistentID else {
             print("Can't read id of preload ID")
             return
@@ -48,6 +52,7 @@ class TagSelectorTableViewController: UITableViewController {
         
         let controller = (UIApplication.shared.delegate as! AppDelegate).tagController
         
+        // refresh tags of the tag controller
         controller.RefreshTags()
         
         allTags = controller.allTags
@@ -62,21 +67,24 @@ class TagSelectorTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let myCell = tableView.dequeueReusableCell(withIdentifier: "prorotypeTagSelector") as? TagSelectorCell {
-            
+            // create table cell for each tag
             print("making tag cell")
             
             let content = allTags[indexPath.row]
             
+            // Assign name, masterMediaId, and masterMediaType to each of the cells
             myCell.tagNameLabel.text = content
             myCell.masterMediaID = masterMediaID
             myCell.masterMediaType = masterMediaType
             
             let controller = (UIApplication.shared.delegate as! AppDelegate).tagController
             
+            // return all existing tags for the given media
             let mediaTags = controller.returnMediaTags(mediaID: masterMediaID, myMediaType: masterMediaType)
             
             var hasTag = false
             
+            // check and see if the media already has that tag
             for item in mediaTags {
                 if item == content {
                     hasTag = true
@@ -84,6 +92,7 @@ class TagSelectorTableViewController: UITableViewController {
                 }
             }
             
+            // If the tag is found, change the background of the select tag button to represent this state
             if hasTag {
                 myCell.selectTagButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: UIControl.State.normal)
                 myCell.enabled = true

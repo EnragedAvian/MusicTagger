@@ -8,13 +8,17 @@
 
 import UIKit
 
+// View controller which handles the "manage tags" view
 class ManageTagsViewController: UIViewController, UITableViewDataSource {
     var allTags: [String] = (UIApplication.shared.delegate as! AppDelegate).tagController.allTags
     
+    // Link the table
     @IBOutlet weak var tagTable: UITableView!
     
+    // Define timer repsonsible for the refreshing of tags in the event they are created/deleted
     var refreshTimer = Timer()
     
+    // Make a tag cell with the tag name as the content (not interactible
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let myCell = tableView.dequeueReusableCell(withIdentifier:
             "prototypeManageTagsCell") as? ManageTagsCell {
@@ -39,6 +43,7 @@ class ManageTagsViewController: UIViewController, UITableViewDataSource {
     }
     
 
+    // basic setup for the table
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,11 +59,13 @@ class ManageTagsViewController: UIViewController, UITableViewDataSource {
     }
     
     func refresh() {
+        // refresh the tags and reload the data every time the this function is called
         allTags = (UIApplication.shared.delegate as! AppDelegate).tagController.allTags
         tagTable.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        // refresh every time the view is called
         refresh()
     }
     

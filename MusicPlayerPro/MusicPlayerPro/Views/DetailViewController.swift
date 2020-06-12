@@ -9,11 +9,14 @@
 import UIKit
 import MediaPlayer
 
+// Class which controls the detailed view of albums/playlists
 class DetailViewController: UIViewController, UITableViewDataSource {
+    // create variables for the collection of items in the detail view, the ID of the collection, and the type of the collection
     var masterCollection = MPMediaItemCollection.init(items: [])
     var masterCollectionID = MPMediaEntityPersistentID()
     var masterMediaType = mediaType.song
     
+    // Link title, artist, image, content table, and buttons to the view controller
     @IBOutlet weak var mediaTitle: UILabel!
     @IBOutlet weak var mediaArtist: UILabel!
     @IBOutlet weak var mediaImage: UIImageView!
@@ -27,11 +30,13 @@ class DetailViewController: UIViewController, UITableViewDataSource {
         return 1
     }
 
+    // Return the number of items in the collection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print (masterCollection.count)
+        //print (masterCollection.count)
         return masterCollection.count
     }
     
+    // Generate a cell for each song in the playlist/album
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let myCell = tableView.dequeueReusableCell(withIdentifier: "prototypeDetailCell") as? DetailViewCell {
             
@@ -51,9 +56,11 @@ class DetailViewController: UIViewController, UITableViewDataSource {
     }
     
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // read the type and ID from userDefaults (stored when the button to call this menu is pressed)
         let preLoadType = UserDefaults.standard.string(forKey: "detailType")
         let preLoadID = UserDefaults.standard.object(forKey: "collectionID")
     
@@ -64,6 +71,7 @@ class DetailViewController: UIViewController, UITableViewDataSource {
         
         var collectionType = mediaType.song
         
+        // Convert the type of collection from a string into a mediaType enumeration
         switch (collectionTypeString) {
         case "album":
             collectionType = mediaType.album
@@ -75,18 +83,22 @@ class DetailViewController: UIViewController, UITableViewDataSource {
         
         masterMediaType = collectionType
         
+        // Unwrap the preloadID
         guard let unwrappedPreLoadID = preLoadID as? MPMediaEntityPersistentID else {
             print("Can't read id of preload ID")
             return
         }
         
+        // store the value in the master variable
         masterCollectionID = unwrappedPreLoadID
         
+        // Display different content depending on if an album or song is being shown
         switch (collectionType) {
         case .song:
             print ("Can't show detail for song")
             return
         case .album:
+            // Read the album from the user's library based on the persistent ID
             let albumFilter = MPMediaPropertyPredicate(value: masterCollectionID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: .equalTo)
             
             let filterSet = Set([albumFilter])
@@ -98,8 +110,10 @@ class DetailViewController: UIViewController, UITableViewDataSource {
                 return
             }
             
+            // store the album in the masterCollection
             masterCollection = MPMediaItemCollection(items: unwrappedQuery)
             
+            // Set the albumCover as the artwork of one of the songs in the album (doesn't really matter which)
             var albumCover: MPMediaItemArtwork?
             
             if masterCollection.items.count > 0 {
@@ -114,13 +128,15 @@ class DetailViewController: UIViewController, UITableViewDataSource {
                 mediaImage.image = UIImage(systemName: "music.note.list")?.withTintColor(UIColor.lightText)
             }
             
+            // set the table data source as the view controller
             contentTable.dataSource = self
             
             return
         case .playlist:
+            // Same functionality as above, but reading from a playlist rather than an album
             print("MasterCollection ID: " + String(masterCollectionID))
             
-            
+            // Playlist has to be read differently as MPMediaQuery can't return a single playlist from a set of predicates
             let masterPlaylistQuery = MPMediaQuery.playlists()
             
             guard let masterPlaylistCollection: [MPMediaItemCollection] = masterPlaylistQuery.collections else {
@@ -170,6 +186,7 @@ class DetailViewController: UIViewController, UITableViewDataSource {
         // Do any additional setup after loading the view.
     }
     
+    // Call the showTags function based on the type of item being sent
     @IBAction func pressShowTags(_ sender: Any) {
         UserDefaults.standard.set(masterCollectionID, forKey: "tagViewID")
         switch (masterMediaType) {
@@ -182,6 +199,7 @@ class DetailViewController: UIViewController, UITableViewDataSource {
         }
     }
     
+    // Play the selected media by adding it to the queue and starting playback, replacing what is there before
     @IBAction func pressPlay(_ sender: Any) {
         let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController
         

@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: Properties
 
+    // Initializing objects to be used throughout the software, namely the music controller and tag manager
     lazy var appleMusicInterface: AppleMusicInterface = {
         return AppleMusicInterface()
     }()

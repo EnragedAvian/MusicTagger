@@ -10,21 +10,27 @@ import UIKit
 import StoreKit
 import MediaPlayer
 
+// View controller for launch screen
 class LaunchViewController: UIViewController {
 
+    // create myStatus variable which reads the cloud authorization status
     var myStatus = SKCloudServiceAuthorizationStatus.notDetermined
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // define tagController alias for the creation of tags
         let controller = (UIApplication.shared.delegate as! AppDelegate).tagController
         
-        controller.createTag(tagName: "Favorites")
+        print(controller.createTag(tagName: "Sample Tag"))
+        
+        /*controller.createTag(tagName: "Favorites")
         controller.createTag(tagName: "Cameron")
-        controller.createTag(tagName: "Bops")
+        controller.createTag(tagName: "Bops")*/
         
-        print(controller.createTag(tagName: "anotherTag"))
+        //print(controller.createTag(tagName: "anotherTag"))
         
+        // reset markedTags item stored in user defaults (keeps track of which tags have been marked for creation of a new playlist)
         UserDefaults.standard.set([String](), forKey: "markedTags")
         
         /*let controller = (UIApplication.shared.delegate as! AppDelegate).musicPlayerController

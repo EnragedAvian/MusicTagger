@@ -9,6 +9,7 @@
 import UIKit
 import MediaPlayer
 
+// Cell defining the "detail view" song cell
 class DetailViewCell: UITableViewCell {
 
     @IBOutlet weak var contentName: UILabel!
@@ -20,7 +21,7 @@ class DetailViewCell: UITableViewCell {
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        // super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }

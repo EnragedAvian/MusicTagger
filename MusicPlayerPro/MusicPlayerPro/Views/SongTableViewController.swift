@@ -9,12 +9,14 @@
 import UIKit
 import MediaPlayer
 
+// View controller which handles the table of all songs/playlists/albums
 class SongTableViewController: UITableViewController {
 
+    // connect the category selector and table view controllers
     @IBOutlet weak var categorySelector: UISegmentedControl!
     @IBOutlet var myTableView: UITableView!
     
-    
+    // create variables holding all songs, albums, and playlists
     var allSongs = [MPMediaItem]()
     var allAlbums = [MPMediaItemCollection]()
     var allPlaylists = [MPMediaItemCollection]()
@@ -22,6 +24,7 @@ class SongTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Query all songs and store them
         let readSongsQuery = MPMediaQuery.songs()
         
         guard let songCollection: [MPMediaItem] = readSongsQuery.items else {
@@ -31,6 +34,7 @@ class SongTableViewController: UITableViewController {
         
         allSongs = songCollection
         
+        // Query all albums and store them
         let readAlbumsQuery = MPMediaQuery.albums()
         //print(readAlbumsQuery)
         guard let albumCollection: [MPMediaItemCollection] = readAlbumsQuery.collections else {
@@ -39,6 +43,7 @@ class SongTableViewController: UITableViewController {
         }
         allAlbums = albumCollection
         
+        // Query all playlists and store them
         let readPlaylistsQuery = MPMediaQuery.playlists()
         //print(readPlaylistsQuery)
         guard let playlistCollection: [MPMediaItemCollection] = readPlaylistsQuery.collections else {
@@ -56,6 +61,7 @@ class SongTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    // reload the table data when the category selector is changed
     @IBAction func valueChanged(_ sender: Any) {
         myTableView.reloadData()
     }
@@ -69,6 +75,7 @@ class SongTableViewController: UITableViewController {
         return 1
     }
 
+    // Define the number of rows in each section based on the number of items in each collection
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if categorySelector.selectedSegmentIndex == 0 {
             return allSongs.count
@@ -84,22 +91,27 @@ class SongTableViewController: UITableViewController {
 
     // Define the creation of a UITableViewCell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // add cells depending on what index the view selector is at
         switch (categorySelector.selectedSegmentIndex) {
         case 0:
+            // Add a new cell of type SampleSongCell
             if let myCell = tableView.dequeueReusableCell(withIdentifier: "prototypeSongCell") as? SampleSongCell { // attempt to import prototype cell from storyboard
                 
+                // read the artist, name, and song ID
                 let artist = allSongs[indexPath.row].artist
                 let name = allSongs[indexPath.row].title
                 let songID = allSongs[indexPath.row].persistentID
                 
-                
+                // read the album cover of the song
                 let albumCover = allSongs[indexPath.row].artwork
                 
+                // Write the song, name, artist, and mediaID cover to the cell
                 myCell.cellMediaType = .song
                 myCell.songName.text = name
                 myCell.artistName.text = artist
                 myCell.mediaID = songID
                 
+                // Convert the album art into a usable format
                 if albumCover != nil {
                     myCell.albumCover.image = albumCover?.image(at: CGSize(width: 150, height: 150))
                 } else {
@@ -111,20 +123,24 @@ class SongTableViewController: UITableViewController {
                 return myCell
             }
         case 1:
+            // add a new cell of type SampleAlbumCell
             if let myCell = tableView.dequeueReusableCell(withIdentifier: "prototypeAlbumCell") as? SampleAlbumCell { // attempt to import prototype cell from storyboard
                 
+                // read the artist, name, and album ID
                 let artist = allAlbums[indexPath.row].items[0].albumArtist
                 let name = allAlbums[indexPath.row].items[0].albumTitle
                 let albumID = allAlbums[indexPath.row].items[0].albumPersistentID
                 
-                
+                // read the album cover
                 let albumCover = allAlbums[indexPath.row].items[0].artwork
                 
+                // write the name, artist, and album ID
                 myCell.cellMediaType = .album
                 myCell.albumName.text = name
                 myCell.artistName.text = artist
                 myCell.mediaID = albumID
                 
+                // Convert the album art into a usable format
                 if albumCover != nil {
                     myCell.albumCover.image = albumCover?.image(at: CGSize(width: 150, height: 150))
                 } else {
@@ -136,8 +152,10 @@ class SongTableViewController: UITableViewController {
                 return myCell
             }
         case 2:
+            // add a new cell of type SamplePlaylistCell
             if let myCell = tableView.dequeueReusableCell(withIdentifier: "prototypePlaylistCell") as? SamplePlaylistCell { // attempt to import prototype cell from storyboard
                 
+                // Read the name and playlistID
                 guard let name = allPlaylists[indexPath.row].value(forProperty: MPMediaPlaylistPropertyName) as? String else {
                     print("could not read playlist name")
                     return myCell
@@ -147,19 +165,21 @@ class SongTableViewController: UITableViewController {
                     return myCell
                 }
                 
+                // read the artwork
                 var playlistCover: MPMediaItemArtwork?
                 
                 if allPlaylists[indexPath.row].items.count > 0 {
                     playlistCover = allPlaylists[indexPath.row].items[0].artwork
                 }
                 
-                
+                // Fill all data fields in the cell
                 myCell.cellMediaType = .playlist
                 myCell.playlistName.text = name
                 myCell.mediaID = playlistID
                 
-                print(playlistID)
+                // print(playlistID)
                 
+                // Convert the playlist cover into a readable format
                 if playlistCover != nil {
                     myCell.playlistArt.image = playlistCover?.image(at: CGSize(width: 150, height: 150))
                 } else {

@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Broadly similar to TagSelectorCell, only instead of adding tags to a piece of media, this marks tags for the creation of a new playlist
 class PlaylistTagSelectorCell: UITableViewCell {
 
     var chosen = false
